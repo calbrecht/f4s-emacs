@@ -4,8 +4,8 @@
   inputs = {
     emacs-overlay = { url = github:nix-community/emacs-overlay; };
     init-leafs = { url = path:/home/alab/.emacs.i/init-leafs.el; flake = false; };
-    nodejs = { url = github:calbrecht/f4s?dir=nodejs; inputs.nixpkgs.follows = "nixpkgs"; };
-    rust = { url = github:calbrecht/f4s?dir=rust; };
+    nodejs = { url = github:calbrecht/f4s-nodejs; inputs.nixpkgs.follows = "nixpkgs"; };
+    rust = { url = github:calbrecht/f4s-rust; };
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
