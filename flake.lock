@@ -18,7 +18,7 @@
     "init-leafs": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-4d0iSJFqKQgqJjlY928Q+OFR0osH1OQhlE6DhjFraS0=",
+        "narHash": "sha256-X+tx9qAGDyp8gjBV7jcCDEeTGgi335TebAVa3hALrcs=",
         "path": "/home/alab/.emacs.i/init-leafs.el",
         "type": "path"
       },
