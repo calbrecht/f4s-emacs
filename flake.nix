@@ -23,7 +23,7 @@
 
       emacsNodePackages = prev.lib.attrValues {
         inherit (final.nodePackages)
-          eslint eslint_d import-js jsonlint prettier standardx tslint typescript;
+          eslint eslint_d import-js jsonlint prettier standardx tslint typescript trepan-ni;
       };
 
       emacsExtraPathPackages = with final; [
