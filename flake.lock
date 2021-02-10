@@ -64,11 +64,11 @@
         "pkgs-src": "pkgs-src"
       },
       "locked": {
-        "lastModified": 1612908575,
-        "narHash": "sha256-nKFg7IuRgNzd9hyDqkpw7D8oCCPWgJiShQJkCS/ABbE=",
+        "lastModified": 1612944668,
+        "narHash": "sha256-5ZMGh1lnR/c3ddCoQviPZVpXsrBltw1VOdMj+E0Mwu0=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "bcfff597ebce9947e89eed75a9ca871180e69bdf",
+        "rev": "751dfc18d95024a4bc0495631d391329a4913938",
         "type": "github"
       },
       "original": {
