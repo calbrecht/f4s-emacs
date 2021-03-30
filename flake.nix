@@ -62,7 +62,7 @@
       emacs28-git-pkgs = (final.emacs-overlay.emacsWithPackagesFromUsePackage {
         config = builtins.readFile inputs.init-leafs.outPath;
         package = final.emacsGit-nox;
-        #alwaysEnsure = true;
+        alwaysEnsure = false;
 
         # Optionally provide extra packages not in the configuration file.
         extraEmacsPackages = epkgs: [
