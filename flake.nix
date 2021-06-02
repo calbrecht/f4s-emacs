@@ -15,6 +15,7 @@
       inherit system;
       overlays = [ self.overlay ];
     };
+    useLatestNodeJS = true;
   in
   {
     defaultPackage."${system}" = pkgs.emacs28-git-ide;
@@ -26,13 +27,16 @@
       nodePackages = (prev.nodePackages or { }) //
         (inputs.nodejs.overlay final prev).nodePackages;
 
+      nodePackages_latest = (prev.nodePackages_latest or { }) //
+        (inputs.nodejs.overlay final prev).nodePackages_latest;
+
       rustNightly = (prev.rustNightly or { }) //
         (inputs.rust.overlay final prev).rustNightly;
 
       emacsGit-nox = final.emacs-overlay.emacsGit-nox;
 
       emacsNodePackages = prev.lib.attrValues {
-        inherit (final.nodePackages)
+        inherit (if useLatestNodeJS then final.nodePackages_latest else final.nodePackages)
           eslint eslint_d import-js jsonlint prettier standardx tslint typescript trepan-ni;
       };
 
@@ -142,7 +146,7 @@
         name = "emacs";
         paths = [
           emacs28-git-pkgs
-          nodejs
+          (if useLatestNodeJS then nodejs_latest else nodejs)
           rustNightly.rust
         ]
         ++ emacsExtraPathPackages;
