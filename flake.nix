@@ -20,7 +20,11 @@
   {
     defaultPackage."${system}" = pkgs.emacs28-git-ide;
 
-    overlay = final: prev: {
+    overlay = final: prev: let
+      libclangLib = with final; "${lib.getLib llvmPackages.libclang}/lib";
+      libclangIncludes = with final; "${libclangLib}/clang/${lib.getVersion llvmPackages.clang}/include";
+      libcxxIncludes = with final; "${lib.getDev llvmPackages.libcxx}/include/c++/v1";
+    in {
       emacs-overlay = (prev.emacs-overlay or { }) //
         (inputs.emacs-overlay.overlay final prev);
 
@@ -48,10 +52,20 @@
         fzf
         stdenv.cc.bintools.bintools_bin
         diffutils
-        llvmPackages.libclang
         llvmPackages.clang
         llvmPackages.bintools
         pkg-config
+        (tree-sitter.overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            #${prev.tree}/bin/tree .
+            substituteInPlace cli/src/generate/templates/build.rs --replace \
+            ".include(&src_dir);" ".include(&src_dir).include(\"${libclangIncludes}\");"
+
+            substituteInPlace cli/src/loader.rs \
+              --replace \
+              ".host(BUILD_TARGET);" ".host(BUILD_TARGET).include(\"${libcxxIncludes}\");"
+          '';
+        }))
       ];
 
       #emacs28-git = ((prev.emacsPackagesGen final.emacsGit-nox).emacsWithPackages)
@@ -72,10 +86,37 @@
         extraEmacsPackages = epkgs: [
           # meh, this break doom-modeline
           #epkgs.all-the-icons
+          epkgs.tsc
+          # lives in ~/.emacs.d/git now
+          #epkgs.tree-sitter-langs
+          epkgs.melpaPackages.tree-sitter
         ];
 
         # Optionally override derivations.
         override = epkgs: epkgs // {
+          tsc = epkgs.melpaPackages.tsc.overrideAttrs (old: {
+            postPatch = (old.postPatch or "") + ''
+              substituteInPlace core/tsc-dyn-get.el --replace \
+                "tsc-dyn-dir tsc--dir" "tsc-dyn-dir \"/ws/emacs-tree-sitter/result/lib\""
+            '';
+          });
+          # lives in ~/.emacs.d/git now
+          #tree-sitter-langs = epkgs.melpaPackages.tree-sitter-langs.overrideAttrs (old: let
+          #  grammars = (pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars));
+          #in {
+          #  propagatedNativeBuildInputs = (old.propagatedNativeBuildInputs or []) ++ [
+          #    grammars
+          #  ];
+          #  #postPatch = (old.postPatch or "") + ''
+          #  #  substituteInPlace tree-sitter-langs.el --replace \
+          #  #  "(defvar tree-sitter-langs--testing)" \
+          #  #  "(defvar tree-sitter-langs--testing) (setq tree-sitter-langs--testing t)"
+          #  #
+          #  #  substituteInPlace tree-sitter-langs-build.el --replace \
+          #  #    "(concat (file-name-as-directory tree-sitter-langs-grammar-dir) \"bin/\")" \
+          #  #    "\"${grammars}/\""
+          #  #'';
+          #});
           solarized-theme = epkgs.melpaPackages.solarized-theme.overrideAttrs (old: {
             postPatch = ''
               #${prev.tree}/bin/tree $src
@@ -158,8 +199,10 @@
           unlink $out/share/emacs
           mkdir -p $out/share/emacs/site-lisp
           cp ${emacs28-load-path} $out/share/emacs/site-lisp/eval-when-compile-load-path.el
-          wrapProgram $out/bin/emacs --set \
-            RUST_SRC_PATH "${rustNightly.rust-src}/lib/rustlib/src/rust/library" \
+          wrapProgram $out/bin/emacs \
+            --set LIBCLANG_PATH "${libclangLib}" \
+            --set BINDGEN_EXTRA_CLANG_ARGS "-isystem ${libclangIncludes}" \
+            --set RUST_SRC_PATH "${rustNightly.rust-src}/lib/rustlib/src/rust/library" \
             --prefix PATH : $out/bin:${prev.lib.makeBinPath emacsNodePackages}}
         '';
       };
