@@ -59,13 +59,14 @@
           postPatch = (old.postPatch or "") + ''
             #${prev.tree}/bin/tree .
             substituteInPlace cli/src/generate/templates/build.rs --replace \
-            ".include(&src_dir);" ".include(&src_dir).include(\"${libclangIncludes}\");"
+              ".include(&src_dir);" ".include(&src_dir).include(\"${libclangIncludes}\");"
 
-            substituteInPlace cli/src/loader.rs \
+            substituteInPlace cli/loader/src/lib.rs \
               --replace \
               ".host(BUILD_TARGET);" ".host(BUILD_TARGET).include(\"${libcxxIncludes}\");"
           '';
         }))
+        irony-server
       ];
 
       #emacs28-git = ((prev.emacsPackagesGen final.emacsGit-nox).emacsWithPackages)
