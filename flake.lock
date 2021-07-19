@@ -2,11 +2,11 @@
   "nodes": {
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1626630029,
-        "narHash": "sha256-FfY7bUXoiurnC4/nPrkkVneCyFe2PJj8Ertgax7I22U=",
+        "lastModified": 1626712893,
+        "narHash": "sha256-KsLDL+ZPV+/8YrjMtT1SPx8Uf/H67Dm6oWdlG/FjXNA=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "4470595d93d25163609226c21e1a1dcf366de2ea",
+        "rev": "8e25e4f1289c3b9f25c3d9f00398f8b08837db8b",
         "type": "github"
       },
       "original": {
@@ -78,11 +78,11 @@
         "pkgs-src": "pkgs-src"
       },
       "locked": {
-        "lastModified": 1626559753,
-        "narHash": "sha256-Y7QLdURtyKFCWw2WO4ZS5R21+SzNL6PH/Y4AzUbHwBs=",
+        "lastModified": 1626732571,
+        "narHash": "sha256-luZVJXiESp/Dmm5O6H3BeSTr4ERV6vdzRjjxD5hKtrg=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "5042964a2f6f149996ce18ebb2d9b56435317883",
+        "rev": "8d8d68af4f39f69494fdbd10652b802f2f5076b4",
         "type": "github"
       },
       "original": {
@@ -95,11 +95,11 @@
       "flake": false,
       "locked": {
         "dir": "pkgs",
-        "lastModified": 1626559738,
-        "narHash": "sha256-oY3Z53OFIO4MbSMSst9R6l6seHCdTQPSo8p99QerzJQ=",
+        "lastModified": 1626732557,
+        "narHash": "sha256-eo1II63NfbdmRtmIogSeWPj5VOYl32zs5NIskFPAqDk=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "2de674d496a2433234ebe9080f7c74d473aecc80",
+        "rev": "1d5dcc393a20292e98571b9adb22b5d86058fad6",
         "type": "github"
       },
       "original": {
