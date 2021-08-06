@@ -43,16 +43,15 @@
     "nixpkgs-mozilla": {
       "flake": false,
       "locked": {
-        "lastModified": 1612892239,
-        "narHash": "sha256-jwrdJvaDl+kCRH3LFYuL9KweXO7fCTXxLovKja6xqbk=",
-        "owner": "andersk",
+        "lastModified": 1627922300,
+        "narHash": "sha256-/5fyO/265Wrli2pHpe1/i9Lu8XnQ5K+2YLz9Sz568cI=",
+        "owner": "mozilla",
         "repo": "nixpkgs-mozilla",
-        "rev": "3499e085fb6ae1a846bcf425fa9c98a3b77480da",
+        "rev": "b1001ed670666ca4ce1c1b064481f88694315c1d",
         "type": "github"
       },
       "original": {
-        "owner": "andersk",
-        "ref": "stdenv.lib",
+        "owner": "mozilla",
         "repo": "nixpkgs-mozilla",
         "type": "github"
       }
@@ -124,11 +123,11 @@
         "nixpkgs-mozilla": "nixpkgs-mozilla"
       },
       "locked": {
-        "lastModified": 1628269919,
-        "narHash": "sha256-99BRq3iV1alcGO+5S6oQ0MagCWef4emw7StIO7p3cNM=",
+        "lastModified": 1628270278,
+        "narHash": "sha256-JAQSWOeOkxhzTXrPjsYSEm/DrJvMmK59KCyQxki9/hE=",
         "owner": "calbrecht",
         "repo": "f4s-rust",
-        "rev": "cff7f157da9f8c41a640205c32a5296b3b1296bc",
+        "rev": "af0e4e71854ea72a4136ad88c465722b9f844b68",
         "type": "github"
       },
       "original": {
