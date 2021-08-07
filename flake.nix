@@ -84,19 +84,24 @@
         alwaysEnsure = true;
 
         # Optionally provide extra packages not in the configuration file.
-        extraEmacsPackages = epkgs: [
+        extraEmacsPackages = epkgs: with epkgs; [
           # meh, this break doom-modeline
-          #epkgs.all-the-icons
-          epkgs.tsc
+          #all-the-icons
+          tsc
           # lives in ~/.emacs.d/git now
-          #epkgs.tree-sitter-langs
-          epkgs.melpaPackages.tree-sitter
+          #tree-sitter-langs
+          tree-sitter
         ];
 
         # Optionally override derivations.
-        override = epkgs: epkgs // {
-          melpaStablePackages = {};
-          tsc = epkgs.melpaPackages.tsc.overrideAttrs (old: {
+        override = epkgs: let
+          finalPkgs = (final.emacs-overlay.emacsPackagesFor final.emacs-overlay.emacsGit-nox);
+        in
+          finalPkgs.melpaPackages  // {
+
+          inherit (finalPkgs.elpaPackages) spinner ;
+
+          tsc = finalPkgs.melpaPackages.tsc.overrideAttrs (old: {
             postPatch = (old.postPatch or "") + ''
               substituteInPlace core/tsc-dyn-get.el --replace \
                 "tsc-dyn-dir tsc--dir" "tsc-dyn-dir \"/ws/emacs-tree-sitter/result/lib\""
@@ -119,7 +124,7 @@
           #  #    "\"${grammars}/\""
           #  #'';
           #});
-          solarized-theme = epkgs.melpaPackages.solarized-theme.overrideAttrs (old: {
+          solarized-theme = finalPkgs.melpaPackages.solarized-theme.overrideAttrs (old: {
             postPatch = ''
               #${prev.tree}/bin/tree $src
               substituteInPlace solarized.el --replace \
@@ -129,7 +134,7 @@
           });
           #share/emacs/site-lisp/elpa/all-the-icons-20200923.1339/all-the-icons.el
           #(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon)
-          all-the-icons = epkgs.melpaPackages.all-the-icons.overrideAttrs (old: {
+          all-the-icons = finalPkgs.melpaPackages.all-the-icons.overrideAttrs (old: {
             postPatch = ''
               ${prev.tree}/bin/tree $src
               substituteInPlace all-the-icons.el --replace \
@@ -139,7 +144,7 @@
           });
           #share/emacs/site-lisp/elpa/php-mode-20201120.1807/php-local-manual.el
           #(define-obsolete-function-alias 'php-search-local-documentation #'php-local-manual-search)
-          php-mode = epkgs.melpaPackages.php-mode.overrideAttrs (old: {
+          php-mode = finalPkgs.melpaPackages.php-mode.overrideAttrs (old: {
             postPatch = ''
               #${prev.tree}/bin/tree $src
               substituteInPlace lisp/php-local-manual.el --replace \
@@ -150,7 +155,7 @@
           #share/emacs/site-lisp/elpa/racer-20191001.2344/racer.el
           #(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode)
           #(define-obsolete-function-alias 'racer-activate 'racer-mode)
-          racer = epkgs.melpaPackages.racer.overrideAttrs (old: {
+          racer = finalPkgs.melpaPackages.racer.overrideAttrs (old: {
             postPatch = ''
               #${prev.tree}/bin/tree $src
               substituteInPlace racer.el --replace \
@@ -166,7 +171,7 @@
 
           #share/emacs/site-lisp/elpa/nix-mode-20201229.138/nix-mode-autoloads.el
           #(define-obsolete-function-alias 'global-nix-prettify-mode 'nix-prettify-global-mode)
-          nix-mode = epkgs.melpaPackages.nix-mode.overrideAttrs (old: {
+          nix-mode = finalPkgs.melpaPackages.nix-mode.overrideAttrs (old: {
             postPatch = ''
               #${prev.tree}/bin/tree $src
               substituteInPlace nix-prettify-mode.el --replace \
