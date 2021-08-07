@@ -81,7 +81,7 @@
       emacs28-git-pkgs = (final.emacs-overlay.emacsWithPackagesFromUsePackage {
         config = builtins.readFile inputs.init-leafs.outPath;
         package = final.emacsGit-nox;
-        alwaysEnsure = false;
+        alwaysEnsure = true;
 
         # Optionally provide extra packages not in the configuration file.
         extraEmacsPackages = epkgs: [
@@ -95,6 +95,7 @@
 
         # Optionally override derivations.
         override = epkgs: epkgs // {
+          melpaStablePackages = {};
           tsc = epkgs.melpaPackages.tsc.overrideAttrs (old: {
             postPatch = (old.postPatch or "") + ''
               substituteInPlace core/tsc-dyn-get.el --replace \
@@ -180,8 +181,9 @@
       });
 
       emacs28-load-path = prev.writeText "eval-when-compile-load-path.el" ''
-        (let ((default-directory "${final.emacs28-git-pkgs.deps.outPath}/share/emacs/site-lisp"))
-          (normal-top-level-add-subdirs-to-load-path))
+        (eval-when-compile
+          (let ((default-directory "${final.emacs28-git-pkgs.deps.outPath}/share/emacs/site-lisp"))
+            (normal-top-level-add-subdirs-to-load-path)))
       '';
 
       emacs28-git-ide = with final; prev.symlinkJoin {
