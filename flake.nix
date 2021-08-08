@@ -6,6 +6,7 @@
     init-leafs = { url = path:/home/alab/.emacs.i/init-leafs.el; flake = false; };
     nodejs = { url = github:calbrecht/f4s-nodejs; inputs.nixpkgs.follows = "nixpkgs"; };
     rust = { url = github:calbrecht/f4s-rust; };
+    emacs-src = { url = path:/ws/emacs; flake = false; };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -19,6 +20,8 @@
   in
   {
     defaultPackage."${system}" = pkgs.emacs28-git-ide;
+
+    legacyPackages."${system}" = pkgs;
 
     overlay = final: prev: let
       libclangLib = with final; "${lib.getLib llvmPackages.libclang}/lib";
@@ -37,7 +40,9 @@
       rustNightly = (prev.rustNightly or { }) //
         (inputs.rust.overlay final prev).rustNightly;
 
-      emacsGit-nox = final.emacs-overlay.emacsGit-nox;
+        emacsGit-nox = final.emacs-overlay.emacsGit-nox.overrideAttrs (old: {
+          src = inputs.emacs-src;
+        });
 
       emacsNodePackages = prev.lib.attrValues {
         inherit (if useLatestNodeJS then final.nodePackages_latest else final.nodePackages)
