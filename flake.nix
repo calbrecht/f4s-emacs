@@ -216,7 +216,7 @@
             --set LIBCLANG_PATH "${libclangLib}" \
             --set BINDGEN_EXTRA_CLANG_ARGS "-isystem ${libclangIncludes}" \
             --set RUST_SRC_PATH "${rustNightly.rust-src}/lib/rustlib/src/rust/library" \
-            --prefix PATH : $out/bin:${prev.lib.makeBinPath emacsNodePackages}}
+            --prefix PATH : $out/bin:${prev.lib.makeBinPath emacsNodePackages}
         '';
       };
     };
