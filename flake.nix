@@ -41,7 +41,7 @@
         (inputs.rust.overlay final prev).rustNightly;
 
         emacsGit-nox = final.emacs-overlay.emacsGit-nox.overrideAttrs (old: {
-          src = inputs.emacs-src;
+          #src = inputs.emacs-src;
         });
 
       emacsNodePackages = prev.lib.attrValues {
