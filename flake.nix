@@ -59,7 +59,9 @@
 
       emacsNodePackages = prev.lib.attrValues {
         inherit (if useLatestNodeJS then final.nodePackages_latest else final.nodePackages)
-          eslint eslint_d import-js jsonlint prettier standardx tslint typescript typescript-language-server trepan-ni;
+        eslint eslint_d import-js jsonlint prettier standardx tslint trepan-ni
+        typescript typescript-language-server bash-language-server intelephense
+        yaml-language-server;
       };
 
       emacsExtraPathPackages = with final; [
