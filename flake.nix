@@ -117,7 +117,8 @@
 
         # Optionally override derivations.
         override = epkgs: let
-          finalPkgs = (final.emacs-overlay.emacsPackagesFor final.emacs-overlay.emacsGit-nox);
+          #finalPkgs = (final.emacs-overlay.emacsPackagesFor final.emacsGit-nox);
+          finalPkgs = (final.emacs-overlay.emacsPackagesFor final.emacsGcc-nox);
         in
           finalPkgs.melpaPackages  // {
 
