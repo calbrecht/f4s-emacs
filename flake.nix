@@ -88,6 +88,11 @@
         }))
         irony-server
         php80
+        perlPackages.RPCEPCService
+        perlPackages.DBI
+        perlPackages.DBDSQLite
+        perlPackages.DBDMariaDB
+        perlPackages.DBDPg
       ];
 
       #emacs28-git = ((prev.emacsPackagesGen final.emacsGit-nox).emacsWithPackages)
