@@ -88,11 +88,14 @@
         }))
         irony-server
         php80
-        perlPackages.RPCEPCService
+        perlPackages.AnyEvent
+        perlPackages.ClassAccessorFast
+        perlPackages.DataSExpression
         perlPackages.DBI
         perlPackages.DBDSQLite
         perlPackages.DBDMariaDB
         perlPackages.DBDPg
+        perlPackages.RPCEPCService
       ];
 
       #emacs28-git = ((prev.emacsPackagesGen final.emacsGit-nox).emacsWithPackages)
@@ -239,6 +242,7 @@
             --set LIBCLANG_PATH "${libclangLib}" \
             --set BINDGEN_EXTRA_CLANG_ARGS "-isystem ${libclangIncludes}" \
             --set RUST_SRC_PATH "${rustNightly.rust-src}/lib/rustlib/src/rust/library" \
+            --prefix PERL5LIB : "$out/lib/perl5/site_perl/5.34.0:$out/lib/perl5/site_perl/5.34.0/x86_64-linux-thread-multi" \
             --prefix PATH : $out/bin:${prev.lib.makeBinPath emacsNodePackages}
         '';
       };
