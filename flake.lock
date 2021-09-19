@@ -2,11 +2,11 @@
   "nodes": {
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1631982995,
-        "narHash": "sha256-zV5iO1IZ1qcc7aQV0LvQE1hw9CWK2wvJzNoxafBjMO0=",
+        "lastModified": 1632015736,
+        "narHash": "sha256-5rJedQ2ivcVB1C1Ov+Kd7ur93puNhDdmSaEy7ucz7fg=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "a8174cfc7b5ca6f7c7156e8a7bea1e0756205db6",
+        "rev": "a795f94a58237c1db8b35483235cd6a9820cd315",
         "type": "github"
       },
       "original": {
@@ -41,10 +41,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1631555525,
-        "narHash": "sha256-dfMhcyC0w+wsDUvTLTh7FN37V6DJT4OXcrzKsJu01vw=",
-        "path": "/nix/store/9fvvfrjf8ai4yydch4zs9pck1df5cv8y-source",
-        "rev": "ea59da44e84ac92d5eebc7d6e5dd5a2873fe5379",
+        "lastModified": 1631992862,
+        "narHash": "sha256-TJTCDkw7aZvZ603YwZyQoSQfovMGh/lYDc8yDupjHNk=",
+        "path": "/nix/store/gmi6zzh5ky85ma3k8h067idcylcyfn29-source",
+        "rev": "ed332b0bc7440cc25de85a09fdb0491d3ad3343d",
         "type": "path"
       },
       "original": {
@@ -70,10 +70,10 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1631555525,
-        "narHash": "sha256-dfMhcyC0w+wsDUvTLTh7FN37V6DJT4OXcrzKsJu01vw=",
-        "path": "/nix/store/9fvvfrjf8ai4yydch4zs9pck1df5cv8y-source",
-        "rev": "ea59da44e84ac92d5eebc7d6e5dd5a2873fe5379",
+        "lastModified": 1631992862,
+        "narHash": "sha256-TJTCDkw7aZvZ603YwZyQoSQfovMGh/lYDc8yDupjHNk=",
+        "path": "/nix/store/gmi6zzh5ky85ma3k8h067idcylcyfn29-source",
+        "rev": "ed332b0bc7440cc25de85a09fdb0491d3ad3343d",
         "type": "path"
       },
       "original": {
@@ -136,11 +136,11 @@
         "nixpkgs-mozilla": "nixpkgs-mozilla"
       },
       "locked": {
-        "lastModified": 1631993712,
-        "narHash": "sha256-rsqyTc8oStlzzU6UZiPP5Lnx7WYgy1jVNZ5tyuOgq0M=",
+        "lastModified": 1632034164,
+        "narHash": "sha256-y7/H+/2CSbfx/6QoIDI3tNP692cLXoljVfJhPNy9BMA=",
         "owner": "calbrecht",
         "repo": "f4s-rust",
-        "rev": "023f3031c9b0d137764a51aa7079645fe7f69f26",
+        "rev": "360cf086f593d1ed847d0ce109f6830995c972c0",
         "type": "github"
       },
       "original": {
