@@ -6,7 +6,6 @@
     init-leafs = { url = path:/home/alab/.emacs.i/init-leafs.el; flake = false; };
     nodejs = { url = github:calbrecht/f4s-nodejs; inputs.nixpkgs.follows = "nixpkgs"; };
     rust = { url = github:calbrecht/f4s-rust; };
-    emacs-src = { url = path:/ws/emacs; flake = false; };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -40,22 +39,13 @@
       rustNightly = (prev.rustNightly or { }) //
         (inputs.rust.overlay final prev).rustNightly;
 
-      emacsGit-nox = final.emacs-overlay.emacsGit-nox.overrideAttrs (old: {
-        #src = inputs.emacs-src;
-      });
-
       emacsGcc-nox = ((final.emacs-overlay.emacsGcc.override {
         withX = false;
         withGTK2 = false;
         withGTK3 = false;
       }).overrideAttrs ( oa: {
-        #src = inputs.emacs-src;
         name = "${oa.name}-nox";
       }));
-
-      emacsPgtkGcc = final.emacs-overlay.emacsPgtkGcc.overrideAttrs (old: {
-        #src = inputs.emacs-src;
-      });
 
       emacsNodePackages = prev.lib.attrValues {
         inherit (if useLatestNodeJS then final.nodePackages_latest else final.nodePackages)
@@ -109,7 +99,6 @@
 
       emacs28-git-pkgs = (final.emacs-overlay.emacsWithPackagesFromUsePackage {
         config = builtins.readFile inputs.init-leafs.outPath;
-        #package = final.emacsGit-nox;
         package = final.emacsGcc-nox;
         alwaysEnsure = true;
 
@@ -125,7 +114,6 @@
 
         # Optionally override derivations.
         override = epkgs: let
-          #finalPkgs = (final.emacs-overlay.emacsPackagesFor final.emacsGit-nox);
           finalPkgs = (final.emacs-overlay.emacsPackagesFor final.emacsGcc-nox);
         in
           finalPkgs.melpaPackages  // {
