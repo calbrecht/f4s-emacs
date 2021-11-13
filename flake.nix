@@ -13,7 +13,15 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
-      overlays = [ self.overlay ];
+      overlays = [ 
+        self.overlay
+        (self: prev: {
+          tree = prev.tree.overrideAttrs (old: {
+            makeFlags = (self.lib.take 2 old.makeFlags)
+            ++ (self.lib.drop 3 old.makeFlags);
+          });
+        })
+      ];
     };
     useLatestNodeJS = true;
   in
