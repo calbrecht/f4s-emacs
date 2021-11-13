@@ -5,6 +5,7 @@
     emacs-overlay = { url = github:nix-community/emacs-overlay; };
     init-leafs = { url = path:/home/alab/.emacs.i/init-leafs.el; flake = false; };
     nodejs = { url = github:calbrecht/f4s-nodejs; inputs.nixpkgs.follows = "nixpkgs"; };
+    f4s = { url = github:calbrecht/f4s; };
     rust = { url = github:calbrecht/f4s-rust; };
   };
 
@@ -14,13 +15,8 @@
     pkgs = import nixpkgs {
       inherit system;
       overlays = [ 
+        inputs.f4s.overlays.fixups
         self.overlay
-        (self: prev: {
-          tree = prev.tree.overrideAttrs (old: {
-            makeFlags = (self.lib.take 2 old.makeFlags)
-            ++ (self.lib.drop 3 old.makeFlags);
-          });
-        })
       ];
     };
     useLatestNodeJS = true;
