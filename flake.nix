@@ -41,7 +41,7 @@
         (inputs.nodejs.overlay final prev).nodePackages_latest;
 
       rustNightly = (prev.rustNightly or { }) //
-        (inputs.rust.overlay final prev).rustNightly;
+       (inputs.rust.overlay final prev).rustNightly;
 
       emacsGcc-nox = ((final.emacs-overlay.emacsGcc.override {
         withX = false;
@@ -205,6 +205,9 @@
           #share/emacs/site-lisp/elpa/lsp-mode-20201231.1252/lsp-ocaml.el
           #(define-obsolete-variable-alias 'lsp-merlin 'lsp-ocaml-lsp-server)
           #(define-obsolete-variable-alias 'lsp-merlin-command 'lsp-ocaml-lsp-server-command)
+          irony = finalPkgs.melpaPackages.irony.overrideAttrs (old: {
+            patchPhase = '''';
+          });
         };
       });
 
