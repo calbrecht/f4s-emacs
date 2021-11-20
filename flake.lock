@@ -4670,11 +4670,11 @@
         "nixpkgs-mozilla": "nixpkgs-mozilla_21"
       },
       "locked": {
-        "lastModified": 1637433766,
-        "narHash": "sha256-gnr7eek5xPD4PBwwLNN+l1iV+515fhoNEf3fDQmNoJQ=",
+        "lastModified": 1637435547,
+        "narHash": "sha256-Bk55jche0q1sPnke7ge3rRhXoiVGgzI7DWrHUZ/8Euc=",
         "owner": "calbrecht",
         "repo": "f4s-rust",
-        "rev": "ea051de408301fa01c466fc960af3241d23bc591",
+        "rev": "034dfc7e72a6ba500aa52795b83d31932b78ac33",
         "type": "github"
       },
       "original": {
