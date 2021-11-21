@@ -22,7 +22,7 @@
     useLatestNodeJS = true;
   in
   {
-    defaultPackage."${system}" = pkgs.emacs28-git-ide;
+    defaultPackage."${system}" = pkgs.emacs-git-ide;
 
     legacyPackages."${system}" = pkgs;
 
@@ -42,6 +42,21 @@
 
       rustNightly = (prev.rustNightly or { }) //
        (inputs.rust.overlay final prev).rustNightly;
+
+      tree-sitter = (prev.tree-sitter.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          #${prev.tree}/bin/tree .
+          substituteInPlace cli/src/generate/templates/build.rs --replace \
+            ".include(&src_dir);" ".include(&src_dir).include(\"${libclangIncludes}\");"
+
+          substituteInPlace cli/loader/src/lib.rs --replace \
+            ".host(BUILD_TARGET);" ".host(BUILD_TARGET).include(\"${libcxxIncludes}\");"
+        '';
+      }));
+
+      irony-server = (prev.irony-server.override {
+        irony = final.emacsPackages.melpaPackages.irony;
+      });
 
       emacsGcc-nox = ((final.emacs-overlay.emacsGcc.override {
         withX = false;
@@ -69,17 +84,7 @@
         llvmPackages.clang
         llvmPackages.bintools
         pkg-config
-        (tree-sitter.overrideAttrs (old: {
-          postPatch = (old.postPatch or "") + ''
-            #${prev.tree}/bin/tree .
-            substituteInPlace cli/src/generate/templates/build.rs --replace \
-              ".include(&src_dir);" ".include(&src_dir).include(\"${libclangIncludes}\");"
-
-            substituteInPlace cli/loader/src/lib.rs \
-              --replace \
-              ".host(BUILD_TARGET);" ".host(BUILD_TARGET).include(\"${libcxxIncludes}\");"
-          '';
-        }))
+        tree-sitter
         irony-server
         php80
         perlPackages.AnyEvent
@@ -91,15 +96,6 @@
         perlPackages.DBDPg
         perlPackages.RPCEPCService
       ];
-
-      #emacs28-git = ((prev.emacsPackagesGen final.emacsGit-nox).emacsWithPackages)
-      #  (epkgs: (with epkgs.melpaStablePackages; [
-      #  ]) ++ (with epkgs.melpaPackages; [
-      #    leaf
-      #    leaf-keywords
-      #  ]) ++ (with epkgs.elpaPackages; [
-      #  ]) ++ [
-      #  ]);
 
       melpaPackagesOverride = melpaPackages: melpaPackages // {
         tsc = melpaPackages.tsc.overrideAttrs (old: {
@@ -125,65 +121,6 @@
         #  #    "\"${grammars}/\""
         #  #'';
         #});
-        solarized-theme = melpaPackages.solarized-theme.overrideAttrs (old: {
-          postPatch = ''
-            #${prev.tree}/bin/tree $src
-            substituteInPlace solarized.el --replace \
-            "'create-solarized-theme-file 'solarized-create-theme-file)" \
-            "'create-solarized-theme-file 'solarized-create-theme-file \"0\")"
-          '' + (old.postPatch or "");
-        });
-        #share/emacs/site-lisp/elpa/all-the-icons-20200923.1339/all-the-icons.el
-        #(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon)
-        all-the-icons = melpaPackages.all-the-icons.overrideAttrs (old: {
-          postPatch = ''
-            ${prev.tree}/bin/tree $src
-            substituteInPlace all-the-icons.el --replace \
-            "(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon)" \
-            "(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon \"0\")"
-          '' + (old.postPatch or "");
-        });
-        #share/emacs/site-lisp/elpa/php-mode-20201120.1807/php-local-manual.el
-        #(define-obsolete-function-alias 'php-search-local-documentation #'php-local-manual-search)
-        php-mode = melpaPackages.php-mode.overrideAttrs (old: {
-          postPatch = ''
-            #${prev.tree}/bin/tree $src
-            substituteInPlace lisp/php-local-manual.el --replace \
-            "'php-search-local-documentation \#'php-local-manual-search)" \
-            "'php-search-local-documentation \#'php-local-manual-search \"0\")"
-          '' + (old.postPatch or "");
-        });
-        #share/emacs/site-lisp/elpa/racer-20191001.2344/racer.el
-        #(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode)
-        #(define-obsolete-function-alias 'racer-activate 'racer-mode)
-        racer = melpaPackages.racer.overrideAttrs (old: {
-          postPatch = ''
-            #${prev.tree}/bin/tree $src
-            substituteInPlace racer.el --replace \
-            "(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode)" \
-            "(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode \"0\")" \
-            --replace \
-            "(define-obsolete-function-alias 'racer-activate 'racer-mode)" \
-            "(define-obsolete-function-alias 'racer-activate 'racer-mode \"0\")"
-          '' + (old.postPatch or "");
-        });
-        #share/emacs/site-lisp/elpa/nix-mode-20201229.138/nix-prettify-mode.el
-        #(define-obsolete-function-alias 'global-nix-prettify-mode 'nix-prettify-global-mode)
-
-        #share/emacs/site-lisp/elpa/nix-mode-20201229.138/nix-mode-autoloads.el
-        #(define-obsolete-function-alias 'global-nix-prettify-mode 'nix-prettify-global-mode)
-        nix-mode = melpaPackages.nix-mode.overrideAttrs (old: {
-          postPatch = ''
-            #${prev.tree}/bin/tree $src
-            substituteInPlace nix-prettify-mode.el --replace \
-            "'global-nix-prettify-mode 'nix-prettify-global-mode)" \
-            "'global-nix-prettify-mode 'nix-prettify-global-mode \"0\")"
-          '' + (old.postPatch or "");
-        });
-        #share/emacs/site-lisp/elpa/lsp-mode-20201231.1252/lsp-ocaml.el
-        #(define-obsolete-variable-alias 'lsp-merlin 'lsp-ocaml-lsp-server)
-        #(define-obsolete-variable-alias 'lsp-merlin-command 'lsp-ocaml-lsp-server-command)
-
         irony = melpaPackages.irony.overrideAttrs (old: {
           postPatch = ''
             #${prev.tree}/bin/tree $src
@@ -198,18 +135,16 @@
         let
           melpaPackages = final.melpaPackagesOverride esuper.melpaPackages;
         in
-        melpaPackages // { inherit melpaPackages; });
+        esuper.elpaPackages
+        // { inherit (esuper) elpaPackages; }
+        // melpaPackages
+        // { inherit melpaPackages; });
 
-      irony-server = (prev.irony-server.override {
-        irony = final.emacsPackages.melpaPackages.irony;
-      });
-
-      emacs28-git-pkgs = (final.emacs-overlay.emacsWithPackagesFromUsePackage {
+      emacsGitWithPackages = (final.emacs-overlay.emacsWithPackagesFromUsePackage {
         config = builtins.readFile inputs.init-leafs.outPath;
         package = final.emacsGcc-nox;
         alwaysEnsure = true;
 
-        # Optionally provide extra packages not in the configuration file.
         extraEmacsPackages = epkgs: with epkgs; [
           # meh, this break doom-modeline
           #all-the-icons
@@ -219,22 +154,19 @@
           tree-sitter
         ];
 
-        # Optionally override derivations.
-        override = epkgs:
-        { inherit (epkgs.elpaPackages) spinner ; }
-        // final.emacsPackages;
+        override = _: final.emacsPackages;
       });
 
-      emacs28-load-path = prev.writeText "eval-when-compile-load-path.el" ''
+      emacsGitLoadPath = prev.writeText "eval-when-compile-load-path.el" ''
         (eval-when-compile
-          (let ((default-directory "${final.emacs28-git-pkgs.deps.outPath}/share/emacs/site-lisp"))
+          (let ((default-directory "${final.emacsGitWithPackages.deps.outPath}/share/emacs/site-lisp"))
             (normal-top-level-add-subdirs-to-load-path)))
       '';
 
-      emacs28-git-ide = with final; prev.symlinkJoin {
+      emacs-git-ide = with final; prev.symlinkJoin {
         name = "emacs";
         paths = [
-          emacs28-git-pkgs
+          emacsGitWithPackages
           (if useLatestNodeJS then nodejs_latest else nodejs)
           rustNightly.rust
         ]
@@ -246,7 +178,7 @@
         postBuild = ''
           unlink $out/share/emacs
           mkdir -p $out/share/emacs/site-lisp
-          cp ${emacs28-load-path} $out/share/emacs/site-lisp/eval-when-compile-load-path.el
+          cp ${emacsGitLoadPath} $out/share/emacs/site-lisp/eval-when-compile-load-path.el
           wrapProgram $out/bin/emacs \
             --set LIBCLANG_PATH "${libclangLib}" \
             --set BINDGEN_EXTRA_CLANG_ARGS "-isystem ${libclangIncludes}" \
