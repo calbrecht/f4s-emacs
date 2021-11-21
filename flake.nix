@@ -101,6 +101,109 @@
       #  ]) ++ [
       #  ]);
 
+      melpaPackagesOverride = melpaPackages: melpaPackages // {
+        tsc = melpaPackages.tsc.overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace core/tsc-dyn-get.el --replace \
+            "tsc-dyn-dir tsc--dir" "tsc-dyn-dir \"/ws/emacs-tree-sitter/result/lib\""
+          '';
+        });
+        # lives in ~/.emacs.d/git now
+        #tree-sitter-langs = melpaPackages.tree-sitter-langs.overrideAttrs (old: let
+        #  grammars = (pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars));
+        #in {
+        #  propagatedNativeBuildInputs = (old.propagatedNativeBuildInputs or []) ++ [
+        #    grammars
+        #  ];
+        #  #postPatch = (old.postPatch or "") + ''
+        #  #  substituteInPlace tree-sitter-langs.el --replace \
+        #  #  "(defvar tree-sitter-langs--testing)" \
+        #  #  "(defvar tree-sitter-langs--testing) (setq tree-sitter-langs--testing t)"
+        #  #
+        #  #  substituteInPlace tree-sitter-langs-build.el --replace \
+        #  #    "(concat (file-name-as-directory tree-sitter-langs-grammar-dir) \"bin/\")" \
+        #  #    "\"${grammars}/\""
+        #  #'';
+        #});
+        solarized-theme = melpaPackages.solarized-theme.overrideAttrs (old: {
+          postPatch = ''
+            #${prev.tree}/bin/tree $src
+            substituteInPlace solarized.el --replace \
+            "'create-solarized-theme-file 'solarized-create-theme-file)" \
+            "'create-solarized-theme-file 'solarized-create-theme-file \"0\")"
+          '' + (old.postPatch or "");
+        });
+        #share/emacs/site-lisp/elpa/all-the-icons-20200923.1339/all-the-icons.el
+        #(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon)
+        all-the-icons = melpaPackages.all-the-icons.overrideAttrs (old: {
+          postPatch = ''
+            ${prev.tree}/bin/tree $src
+            substituteInPlace all-the-icons.el --replace \
+            "(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon)" \
+            "(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon \"0\")"
+          '' + (old.postPatch or "");
+        });
+        #share/emacs/site-lisp/elpa/php-mode-20201120.1807/php-local-manual.el
+        #(define-obsolete-function-alias 'php-search-local-documentation #'php-local-manual-search)
+        php-mode = melpaPackages.php-mode.overrideAttrs (old: {
+          postPatch = ''
+            #${prev.tree}/bin/tree $src
+            substituteInPlace lisp/php-local-manual.el --replace \
+            "'php-search-local-documentation \#'php-local-manual-search)" \
+            "'php-search-local-documentation \#'php-local-manual-search \"0\")"
+          '' + (old.postPatch or "");
+        });
+        #share/emacs/site-lisp/elpa/racer-20191001.2344/racer.el
+        #(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode)
+        #(define-obsolete-function-alias 'racer-activate 'racer-mode)
+        racer = melpaPackages.racer.overrideAttrs (old: {
+          postPatch = ''
+            #${prev.tree}/bin/tree $src
+            substituteInPlace racer.el --replace \
+            "(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode)" \
+            "(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode \"0\")" \
+            --replace \
+            "(define-obsolete-function-alias 'racer-activate 'racer-mode)" \
+            "(define-obsolete-function-alias 'racer-activate 'racer-mode \"0\")"
+          '' + (old.postPatch or "");
+        });
+        #share/emacs/site-lisp/elpa/nix-mode-20201229.138/nix-prettify-mode.el
+        #(define-obsolete-function-alias 'global-nix-prettify-mode 'nix-prettify-global-mode)
+
+        #share/emacs/site-lisp/elpa/nix-mode-20201229.138/nix-mode-autoloads.el
+        #(define-obsolete-function-alias 'global-nix-prettify-mode 'nix-prettify-global-mode)
+        nix-mode = melpaPackages.nix-mode.overrideAttrs (old: {
+          postPatch = ''
+            #${prev.tree}/bin/tree $src
+            substituteInPlace nix-prettify-mode.el --replace \
+            "'global-nix-prettify-mode 'nix-prettify-global-mode)" \
+            "'global-nix-prettify-mode 'nix-prettify-global-mode \"0\")"
+          '' + (old.postPatch or "");
+        });
+        #share/emacs/site-lisp/elpa/lsp-mode-20201231.1252/lsp-ocaml.el
+        #(define-obsolete-variable-alias 'lsp-merlin 'lsp-ocaml-lsp-server)
+        #(define-obsolete-variable-alias 'lsp-merlin-command 'lsp-ocaml-lsp-server-command)
+
+        irony = melpaPackages.irony.overrideAttrs (old: {
+          postPatch = ''
+            #${prev.tree}/bin/tree $src
+            sed -i '/define-minor-mode/,/:group/ { s/nil/:init-value nil/ ; s/irony-lighter/:lighter irony-lighter/ ; s/irony-mode-map/:keymap irony-mode-map/ }' irony.el
+          '' + (old.postPatch or "");
+          doCheck = false;
+        });
+      };
+
+      emacsPackages = (final.emacs-overlay.emacsPackagesFor final.emacsGcc-nox)
+        .overrideScope' (eself: esuper:
+        let
+          melpaPackages = final.melpaPackagesOverride esuper.melpaPackages;
+        in
+        melpaPackages // { inherit melpaPackages; });
+
+      irony-server = (prev.irony-server.override {
+        irony = final.emacsPackages.melpaPackages.irony;
+      });
+
       emacs28-git-pkgs = (final.emacs-overlay.emacsWithPackagesFromUsePackage {
         config = builtins.readFile inputs.init-leafs.outPath;
         package = final.emacsGcc-nox;
@@ -117,98 +220,9 @@
         ];
 
         # Optionally override derivations.
-        override = epkgs: let
-          finalPkgs = (final.emacs-overlay.emacsPackagesFor final.emacsGcc-nox);
-        in
-          finalPkgs.melpaPackages  // {
-
-          inherit (finalPkgs.elpaPackages) spinner ;
-
-          tsc = finalPkgs.melpaPackages.tsc.overrideAttrs (old: {
-            postPatch = (old.postPatch or "") + ''
-              substituteInPlace core/tsc-dyn-get.el --replace \
-                "tsc-dyn-dir tsc--dir" "tsc-dyn-dir \"/ws/emacs-tree-sitter/result/lib\""
-            '';
-          });
-          # lives in ~/.emacs.d/git now
-          #tree-sitter-langs = epkgs.melpaPackages.tree-sitter-langs.overrideAttrs (old: let
-          #  grammars = (pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars));
-          #in {
-          #  propagatedNativeBuildInputs = (old.propagatedNativeBuildInputs or []) ++ [
-          #    grammars
-          #  ];
-          #  #postPatch = (old.postPatch or "") + ''
-          #  #  substituteInPlace tree-sitter-langs.el --replace \
-          #  #  "(defvar tree-sitter-langs--testing)" \
-          #  #  "(defvar tree-sitter-langs--testing) (setq tree-sitter-langs--testing t)"
-          #  #
-          #  #  substituteInPlace tree-sitter-langs-build.el --replace \
-          #  #    "(concat (file-name-as-directory tree-sitter-langs-grammar-dir) \"bin/\")" \
-          #  #    "\"${grammars}/\""
-          #  #'';
-          #});
-          solarized-theme = finalPkgs.melpaPackages.solarized-theme.overrideAttrs (old: {
-            postPatch = ''
-              #${prev.tree}/bin/tree $src
-              substituteInPlace solarized.el --replace \
-                "'create-solarized-theme-file 'solarized-create-theme-file)" \
-                "'create-solarized-theme-file 'solarized-create-theme-file \"0\")"
-            '' + (old.postPatch or "");
-          });
-          #share/emacs/site-lisp/elpa/all-the-icons-20200923.1339/all-the-icons.el
-          #(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon)
-          all-the-icons = finalPkgs.melpaPackages.all-the-icons.overrideAttrs (old: {
-            postPatch = ''
-              ${prev.tree}/bin/tree $src
-              substituteInPlace all-the-icons.el --replace \
-                "(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon)" \
-                "(define-obsolete-function-alias 'define-icon 'all-the-icons-define-icon \"0\")"
-            '' + (old.postPatch or "");
-          });
-          #share/emacs/site-lisp/elpa/php-mode-20201120.1807/php-local-manual.el
-          #(define-obsolete-function-alias 'php-search-local-documentation #'php-local-manual-search)
-          php-mode = finalPkgs.melpaPackages.php-mode.overrideAttrs (old: {
-            postPatch = ''
-              #${prev.tree}/bin/tree $src
-              substituteInPlace lisp/php-local-manual.el --replace \
-                "'php-search-local-documentation \#'php-local-manual-search)" \
-                "'php-search-local-documentation \#'php-local-manual-search \"0\")"
-            '' + (old.postPatch or "");
-          });
-          #share/emacs/site-lisp/elpa/racer-20191001.2344/racer.el
-          #(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode)
-          #(define-obsolete-function-alias 'racer-activate 'racer-mode)
-          racer = finalPkgs.melpaPackages.racer.overrideAttrs (old: {
-            postPatch = ''
-              #${prev.tree}/bin/tree $src
-              substituteInPlace racer.el --replace \
-                "(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode)" \
-                "(define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode \"0\")" \
-              --replace \
-                "(define-obsolete-function-alias 'racer-activate 'racer-mode)" \
-                "(define-obsolete-function-alias 'racer-activate 'racer-mode \"0\")"
-            '' + (old.postPatch or "");
-          });
-          #share/emacs/site-lisp/elpa/nix-mode-20201229.138/nix-prettify-mode.el
-          #(define-obsolete-function-alias 'global-nix-prettify-mode 'nix-prettify-global-mode)
-
-          #share/emacs/site-lisp/elpa/nix-mode-20201229.138/nix-mode-autoloads.el
-          #(define-obsolete-function-alias 'global-nix-prettify-mode 'nix-prettify-global-mode)
-          nix-mode = finalPkgs.melpaPackages.nix-mode.overrideAttrs (old: {
-            postPatch = ''
-              #${prev.tree}/bin/tree $src
-              substituteInPlace nix-prettify-mode.el --replace \
-                "'global-nix-prettify-mode 'nix-prettify-global-mode)" \
-                "'global-nix-prettify-mode 'nix-prettify-global-mode \"0\")"
-            '' + (old.postPatch or "");
-          });
-          #share/emacs/site-lisp/elpa/lsp-mode-20201231.1252/lsp-ocaml.el
-          #(define-obsolete-variable-alias 'lsp-merlin 'lsp-ocaml-lsp-server)
-          #(define-obsolete-variable-alias 'lsp-merlin-command 'lsp-ocaml-lsp-server-command)
-          irony = finalPkgs.melpaPackages.irony.overrideAttrs (old: {
-            patchPhase = '''';
-          });
-        };
+        override = epkgs:
+        { inherit (epkgs.elpaPackages) spinner ; }
+        // final.emacsPackages;
       });
 
       emacs28-load-path = prev.writeText "eval-when-compile-load-path.el" ''
