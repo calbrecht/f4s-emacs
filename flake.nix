@@ -4,6 +4,7 @@
   inputs = {
     emacs-overlay = {
       url = github:nix-community/emacs-overlay;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     init-leafs = {
       url = path:/home/alab/.emacs.i/init-leafs.el;
@@ -15,9 +16,15 @@
     };
     f4s-overlays = {
       url = github:calbrecht/f4s-overlays;
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust.follows = "rust";
+      inputs.nodejs.follows = "nodejs";
       inputs.emacs.follows = "";
     };
-    rust = { url = github:calbrecht/f4s-rust; };
+    rust = {
+      url = github:calbrecht/f4s-rust;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
