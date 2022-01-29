@@ -48,11 +48,11 @@
         "wayland": "wayland"
       },
       "locked": {
-        "lastModified": 1643465932,
-        "narHash": "sha256-cFUkD4ayDXas9M4IDotDM18Pf1Mgbs4JR9Q42g8uVro=",
+        "lastModified": 1643468099,
+        "narHash": "sha256-Ry703b7dNMqc77bYgvABWBPXlTOtMS3U7MilB3UCU3Y=",
         "owner": "calbrecht",
         "repo": "f4s-overlays",
-        "rev": "7a04f09085c62d1a920c9c4d6d3a096340c621d2",
+        "rev": "0c84d0ba1bdc8810f8e1b86a6afee4156c6da581",
         "type": "github"
       },
       "original": {
