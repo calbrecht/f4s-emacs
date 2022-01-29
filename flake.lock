@@ -31,7 +31,7 @@
         "type": "github"
       }
     },
-    "f4s": {
+    "f4s-overlays": {
       "inputs": {
         "emacs": [],
         "firefox-nightly": "firefox-nightly",
@@ -42,11 +42,11 @@
         "wayland": "wayland"
       },
       "locked": {
-        "lastModified": 1643454254,
-        "narHash": "sha256-1+ecAuGLFUgQZMlJTn6lb+1uuP2sVUTDL7TF8Du3j+Y=",
+        "lastModified": 1643457467,
+        "narHash": "sha256-rawCIyaQbfggonJsKYej7Nzm+qjCOgy9kE03P2j1qao=",
         "owner": "calbrecht",
         "repo": "f4s-overlays",
-        "rev": "373afd7e9b2fea1caf24535945909f58ca479d66",
+        "rev": "3aeec0c69dd4cbf042281451e1c097b2a51aba29",
         "type": "github"
       },
       "original": {
@@ -59,7 +59,7 @@
       "inputs": {
         "gecko-dev": "gecko-dev",
         "nixpkgs": [
-          "f4s",
+          "f4s-overlays",
           "nixpkgs"
         ],
         "nspr-dev": "nspr-dev",
@@ -211,9 +211,12 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "narHash": "sha256-S+aAAmxmzL4RWPeaz23ynUB3DVFy5Pj/49SbOm8yHJk=",
-        "path": "/nix/store/d3879fv1r57h72m2pbvaaxvp83h0y7ym-source",
-        "type": "path"
+        "lastModified": 1643458531,
+        "narHash": "sha256-FEFZEa9H7g4psvwz9kejVSmWZ04HeYMaNZ3GYjvWS5s=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "40e67807878c5a9c0bf199d626c2837656a50def",
+        "type": "github"
       },
       "original": {
         "id": "nixpkgs",
@@ -234,7 +237,7 @@
     "nodejs": {
       "inputs": {
         "nixpkgs": [
-          "f4s",
+          "f4s-overlays",
           "nixpkgs"
         ],
         "pkgs-src": "pkgs-src"
@@ -261,11 +264,11 @@
         "pkgs-src": "pkgs-src_2"
       },
       "locked": {
-        "lastModified": 1643407856,
-        "narHash": "sha256-5h9JATIO2jJOdrs1HJAwv4dBQ2hVC+xi7FHJYtIMud0=",
+        "lastModified": 1643459209,
+        "narHash": "sha256-6D7mwyC4JyL9wIkfEjT24l8KQIR4+snTMIH4jXuoR3k=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "b25e4cb3995a5eb024c4e0d4b94a4ae433ccc783",
+        "rev": "fa0f8861542e4aee6bfb30022e03db14e32c4c61",
         "type": "github"
       },
       "original": {
@@ -380,7 +383,7 @@
     "root": {
       "inputs": {
         "emacs-overlay": "emacs-overlay",
-        "f4s": "f4s",
+        "f4s-overlays": "f4s-overlays",
         "init-leafs": "init-leafs",
         "nixpkgs": "nixpkgs_5",
         "nodejs": "nodejs_2",
@@ -429,7 +432,7 @@
       "inputs": {
         "cachix": "cachix",
         "nixpkgs": [
-          "f4s",
+          "f4s-overlays",
           "nixpkgs"
         ]
       },
