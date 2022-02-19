@@ -15,12 +15,9 @@
       url = github:calbrecht/f4s-nodejs;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    f4s-overlays = {
-      url = github:calbrecht/f4s-overlays;
+    fixups = {
+      url = github:calbrecht/f4s-fixups;
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust.follows = "rust";
-      inputs.nodejs.follows = "nodejs";
-      inputs.emacs.follows = "";
     };
     rust = {
       url = github:calbrecht/f4s-rust;
@@ -34,7 +31,7 @@
     pkgs = import nixpkgs {
       inherit system;
       overlays = [ 
-        inputs.f4s-overlays.overlays.fixups
+        inputs.fixups.overlay
         self.overlay
       ];
     };
