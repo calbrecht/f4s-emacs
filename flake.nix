@@ -46,6 +46,8 @@
       libclangIncludes = with final; "${libclangLib}/clang/${lib.getVersion llvmPackages.clang}/include";
       libcxxIncludes = with final; "${lib.getDev llvmPackages.libcxx}/include/c++/v1";
     in {
+      emacsPackagesGen = final.emacs-overlay.emacsPackagesFor;
+
       emacs-overlay = (prev.emacs-overlay or { }) //
         (inputs.emacs-overlay.overlay final prev);
 
