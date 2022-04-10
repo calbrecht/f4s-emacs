@@ -96,6 +96,8 @@
         nixpkgs-fmt
         fd
         fzf
+        ripgrep
+        shellcheck
         stdenv.cc.bintools.bintools_bin
         diffutils
         llvmPackages.clang
