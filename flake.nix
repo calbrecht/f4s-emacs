@@ -105,7 +105,15 @@
         pkg-config
         tree-sitter
         irony-server
-        php80
+        (php81.override {
+          packageOverrides = final: prev: {
+            extensions = prev.extensions // {
+              fileinfo = prev.extensions.fileinfo.overrideAttrs(old: {
+                doCheck = false;
+              });
+            };
+          };
+        })
         perlPackages.AnyEvent
         perlPackages.ClassAccessorFast
         perlPackages.DataSExpression
