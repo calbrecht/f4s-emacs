@@ -38,7 +38,7 @@
     "init-leafs": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-cCyCwWkRAQLR6ghGAyLj9YmeUA8p/389rPuwMQioAAg=",
+        "narHash": "sha256-RcJ5az7un8lLFMZRoVI/KcI0qAL+Xx9i4/jJ1xVtUjA=",
         "path": "/home/alab/.emacs.i/init-leafs.el",
         "type": "path"
       },
@@ -70,11 +70,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1650109093,
-        "narHash": "sha256-tqlnKrAdJktRLXTou9le0oTqrYBAFpGscV5RADdpArU=",
+        "lastModified": 1650131094,
+        "narHash": "sha256-uipj/dvVOx5BZrSz+wngG0Sf7sfqhG5YUqTWben0HTs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "faad370edcb37162401be50d45526f52bb16a713",
+        "rev": "50941984a380f1b188b200a23186baee8100c082",
         "type": "github"
       },
       "original": {
@@ -106,11 +106,11 @@
         "pkgs-src": "pkgs-src"
       },
       "locked": {
-        "lastModified": 1650109422,
-        "narHash": "sha256-evWzi3OdO6Jcq8bOU4D0/350RYO55LHnWf/IiQKpi44=",
+        "lastModified": 1650132609,
+        "narHash": "sha256-OkcI1HVnS6EByCBT2wGaA05YXKfOlt8NtbJo4iGyOME=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "23371f048a6d0b787333c919035217ed9d372acd",
+        "rev": "cffb007bfb1135a7466d3524228a0f664259050f",
         "type": "github"
       },
       "original": {
@@ -179,11 +179,11 @@
         "nixpkgs-mozilla": "nixpkgs-mozilla"
       },
       "locked": {
-        "lastModified": 1650109424,
-        "narHash": "sha256-xqpQjESapilwz4WAjADsCQamEhdP9UazuLpmvd/Mruc=",
+        "lastModified": 1650132619,
+        "narHash": "sha256-4HxSh6QcSIXUcZf11kF3mlWKPne/KT6HGUowBKobVeI=",
         "owner": "calbrecht",
         "repo": "f4s-rust",
-        "rev": "6d1d9694fe69db002620eaec774176d10e553df1",
+        "rev": "98245958c68d16cc736688df33271544a252fae6",
         "type": "github"
       },
       "original": {
