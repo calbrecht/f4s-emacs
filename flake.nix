@@ -81,12 +81,13 @@
             irony = final.emacsPackages.melpaPackages.irony;
           });
 
-          emacsGcc-nox = ((final.emacs-overlay.emacsGcc.override {
+          emacsNativeComp-nox = ((final.emacs-overlay.emacsGit.override {
+            nativeComp = true;
             withX = false;
             withGTK2 = false;
             withGTK3 = false;
           }).overrideAttrs (oa: {
-            name = "${oa.name}-nox";
+            name = "${oa.name}-native-comp-nox";
           }));
 
           emacsNodePackages = prev.lib.attrValues {
@@ -163,7 +164,7 @@
             });
           };
 
-          emacsPackages = (final.emacs-overlay.emacsPackagesFor final.emacsGcc-nox).overrideScope' (eself: esuper:
+          emacsPackages = (final.emacs-overlay.emacsPackagesFor final.emacsNativeComp-nox).overrideScope' (eself: esuper:
             let
               melpaPackages = final.melpaPackagesOverride esuper.melpaPackages;
             in
@@ -174,7 +175,7 @@
 
           emacsGitWithPackages = (final.emacs-overlay.emacsWithPackagesFromUsePackage {
             config = builtins.readFile inputs.init-leafs.outPath;
-            package = final.emacsGcc-nox;
+            package = final.emacsNativeComp-nox;
             alwaysEnsure = true;
 
             extraEmacsPackages = epkgs: with epkgs; [
