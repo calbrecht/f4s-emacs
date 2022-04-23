@@ -63,8 +63,8 @@
           nodePackages_latest = (prev.nodePackages_latest or { }) //
             (inputs.nodejs.overlay final prev).nodePackages_latest;
 
-          rustNightly = (prev.rustNightly or { }) //
-            (inputs.rust.overlay final prev).rustNightly;
+          rustStable = (prev.rustStable or { }) //
+            (inputs.rust.overlay final prev).rustStable;
 
           tree-sitter = (prev.tree-sitter.overrideAttrs (old: {
             postPatch = (old.postPatch or "") + ''
@@ -201,12 +201,12 @@
             paths = [
               emacsGitWithPackages
               (if useLatestNodeJS then nodejs_latest else nodejs)
-              rustNightly.rust
+              rustStable.rust
             ]
             ++ emacsExtraPathPackages;
             buildInputs = [
               prev.makeWrapper
-              rustNightly.rust-src
+              rustStable.rust-src
             ];
             postBuild = ''
               unlink $out/share/emacs
@@ -215,7 +215,7 @@
               wrapProgram $out/bin/emacs \
                 --set LIBCLANG_PATH "${libclangLib}" \
                 --set BINDGEN_EXTRA_CLANG_ARGS "-isystem ${libclangIncludes}" \
-                --set RUST_SRC_PATH "${rustNightly.rust-src}/lib/rustlib/src/rust/library" \
+                --set RUST_SRC_PATH "${rustStable.rust-src}/lib/rustlib/src/rust/library" \
                 --prefix PERL5LIB : "$out/lib/perl5/site_perl/5.34.0:$out/lib/perl5/site_perl/5.34.0/x86_64-linux-thread-multi" \
                 --prefix PATH : $out/bin:${prev.lib.makeBinPath emacsNodePackages}
             '';
