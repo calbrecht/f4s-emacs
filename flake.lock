@@ -38,6 +38,7 @@
     "init-leafs": {
       "flake": false,
       "locked": {
+        "lastModified": 1650769957,
         "narHash": "sha256-VWqCUR+M+KqI1xumCxiMI12fCP2LqEOVMgLaH5ZWF6U=",
         "path": "/home/alab/.emacs.i/init-leafs.el",
         "type": "path"
@@ -70,11 +71,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1651411549,
-        "narHash": "sha256-fbCr+UM1H5fmIEtyywogAjVcug2zoOggwVDGwlgvluI=",
+        "lastModified": 1651427029,
+        "narHash": "sha256-zcGgps/zCzhUJrLV01MJPHnBcM13u6CMA3/mW7BCQRU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0409a0540966ef533ee9ca004b7c1184519eb6a9",
+        "rev": "adfcb57e27981eea2c6f3d0cc609119d6186dfaa",
         "type": "github"
       },
       "original": {
