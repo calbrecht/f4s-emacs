@@ -1,6 +1,10 @@
 {
   description = "Emacs setup flake.";
 
+  nixConfig = {
+    flake-registry = https://github.com/calbrecht/f4s-registry/raw/main/flake-registry.json;
+  };
+
   inputs = {
     emacs-overlay = {
       url = github:nix-community/emacs-overlay;
@@ -11,15 +15,15 @@
       flake = false;
     };
     nodejs = {
-      url = github:calbrecht/f4s-nodejs;
+      url = flake:f4s-nodejs;
       inputs.nixpkgs.follows = "nixpkgs";
     };
     fixups = {
-      url = github:calbrecht/f4s-fixups;
+      url = flake:f4s-fixups;
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust = {
-      url = github:calbrecht/f4s-rust;
+      url = flake:f4s-rust;
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rnix-lsp = {
