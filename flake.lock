@@ -50,7 +50,6 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
-          "rnix-lsp",
           "nixpkgs"
         ]
       },
