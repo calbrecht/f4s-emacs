@@ -6,8 +6,9 @@
   };
 
   inputs = {
+    nixpkgs.url = flake:f4s-nixpkgs;
     emacs-overlay = {
-      url = github:nix-community/emacs-overlay;
+      url = flake:f4s-emacs-overlay;
       inputs.nixpkgs.follows = "nixpkgs";
     };
     init-leafs = {
@@ -26,9 +27,13 @@
       url = flake:f4s-rust;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    naersk.url = flake:f4s-naersk;
+    utils.url = flake:f4s-utils;
     rnix-lsp = {
-      url = github:nix-community/rnix-lsp/41eb2f3366e3f351bf2563c2a7c46fd17e78dfe0;
+      url = flake:f4s-rnix-lsp;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.naersk.follows = "naersk";
+      inputs.utils.follows = "utils";
     };
   };
 

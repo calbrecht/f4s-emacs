@@ -10,9 +10,8 @@
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "emacs-overlay",
-        "type": "github"
+        "id": "f4s-emacs-overlay",
+        "type": "indirect"
       }
     },
     "fixups": {
@@ -49,9 +48,7 @@
     },
     "naersk": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1639947939,
@@ -62,9 +59,8 @@
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "naersk",
-        "type": "github"
+        "id": "f4s-naersk",
+        "type": "indirect"
       }
     },
     "nixpkgs": {
@@ -95,6 +91,20 @@
         "owner": "mozilla",
         "repo": "nixpkgs-mozilla",
         "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1651925741,
+        "narHash": "sha256-gqv6j1ufhkUJxXhuB9gibcW1S1v02Nj/wDQq9rGX7Qw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f1801888282556727785eef66fb3f965a8e713ff",
+        "type": "github"
+      },
+      "original": {
+        "id": "f4s-nixpkgs",
+        "type": "indirect"
       }
     },
     "nodejs": {
@@ -137,11 +147,15 @@
     },
     "rnix-lsp": {
       "inputs": {
-        "naersk": "naersk",
+        "naersk": [
+          "naersk"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
-        "utils": "utils"
+        "utils": [
+          "utils"
+        ]
       },
       "locked": {
         "lastModified": 1643586450,
@@ -152,10 +166,8 @@
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "rnix-lsp",
-        "rev": "41eb2f3366e3f351bf2563c2a7c46fd17e78dfe0",
-        "type": "github"
+        "id": "f4s-rnix-lsp",
+        "type": "indirect"
       }
     },
     "root": {
@@ -163,10 +175,12 @@
         "emacs-overlay": "emacs-overlay",
         "fixups": "fixups",
         "init-leafs": "init-leafs",
-        "nixpkgs": "nixpkgs",
+        "naersk": "naersk",
+        "nixpkgs": "nixpkgs_2",
         "nodejs": "nodejs",
         "rnix-lsp": "rnix-lsp",
-        "rust": "rust"
+        "rust": "rust",
+        "utils": "utils"
       }
     },
     "rust": {
@@ -199,9 +213,8 @@
         "type": "github"
       },
       "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
+        "id": "f4s-utils",
+        "type": "indirect"
       }
     }
   },
