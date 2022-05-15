@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1652580787,
-        "narHash": "sha256-Wlyc2UyuqYQPK77DiE4kKFOZScWdMtUDtBAa1uI/Ezc=",
+        "lastModified": 1652613188,
+        "narHash": "sha256-vHp4U0y0w0ntf4LF8zk0FTbTkwiiJtbs78eSYQVSABw=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "6a61ab567c4a827819e53fd0e6716f6f2f77739d",
+        "rev": "972925e3f1b6724eaf6a896f1ae9390d205fcaae",
         "type": "github"
       },
       "original": {
@@ -58,8 +58,8 @@
     "init-leafs": {
       "flake": false,
       "locked": {
-        "lastModified": 1652535645,
-        "narHash": "sha256-5aNPDYGAvB0svQjH0UFFaxUFOM0lAA/wO70j4/kQg9E=",
+        "lastModified": 1652638873,
+        "narHash": "sha256-nO/7NhgFwDy4gKeTOy7WHA6gb/wIqg3/JcirFm6xS0Y=",
         "path": "/home/alab/.emacs.i/init-leafs.el",
         "type": "path"
       },
@@ -91,11 +91,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1652592728,
-        "narHash": "sha256-Whhp7GT8Wma1b6KjcQgBNuTK7JkVLgBDBp3LnLhip2c=",
+        "lastModified": 1652637578,
+        "narHash": "sha256-c1A4IPkFD+OCfbz0NXDEY1r2Nhm67aPZRmsvEve7GFI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "09692a459cfef32f0f6e2967a5f39c3234a673fe",
+        "rev": "ea69f79829972187ecf6c1eaede4ce7a15d81736",
         "type": "github"
       },
       "original": {
