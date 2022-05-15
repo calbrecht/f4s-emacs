@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1652547998,
-        "narHash": "sha256-MOTILFJRulHl7bL6LckkyMUW9x6jvob490Mliehe1Bw=",
+        "lastModified": 1652580787,
+        "narHash": "sha256-Wlyc2UyuqYQPK77DiE4kKFOZScWdMtUDtBAa1uI/Ezc=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "555028d2439767e0637d326f44400095a0cf12c9",
+        "rev": "6a61ab567c4a827819e53fd0e6716f6f2f77739d",
         "type": "github"
       },
       "original": {
@@ -58,8 +58,8 @@
     "init-leafs": {
       "flake": false,
       "locked": {
-        "lastModified": 1650769957,
-        "narHash": "sha256-VWqCUR+M+KqI1xumCxiMI12fCP2LqEOVMgLaH5ZWF6U=",
+        "lastModified": 1652535645,
+        "narHash": "sha256-5aNPDYGAvB0svQjH0UFFaxUFOM0lAA/wO70j4/kQg9E=",
         "path": "/home/alab/.emacs.i/init-leafs.el",
         "type": "path"
       },
@@ -71,6 +71,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
+          "rnix-lsp",
           "nixpkgs"
         ]
       },
