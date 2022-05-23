@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1653304500,
-        "narHash": "sha256-3x9Afa3L6rq/5YF7xjSZAynoLrz+nXF4tGen0CPp4Wk=",
+        "lastModified": 1653336630,
+        "narHash": "sha256-5BSi26GtbhU+TQpX/+3NsTpYPFgHZItE1TAzg0BH9eE=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "cd6fbfa22bfd96967231515843fbdef3bda7966f",
+        "rev": "dcd7a7f69126b99d4498a10a3c74e820ec91a167",
         "type": "github"
       },
       "original": {
@@ -71,7 +71,6 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
-          "rnix-lsp",
           "nixpkgs"
         ]
       },
