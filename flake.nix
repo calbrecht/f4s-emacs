@@ -56,10 +56,11 @@
           libcxxIncludes = with final; "${lib.getDev llvmPackages.libcxx}/include/c++/v1";
         in
         {
-          emacsPackagesGen = final.emacs-overlay.emacsPackagesFor;
-
           emacs-overlay = (prev.emacs-overlay or { }) //
             (inputs.emacs-overlay.overlay final prev);
+
+          inherit (final.emacs-overlay)
+             emacsGit emacsPackagesFor emacsWithPackagesFromUsePackage;
 
           nodePackages = (prev.nodePackages or { }) //
             (inputs.nodejs.overlay final prev).nodePackages;
@@ -85,7 +86,7 @@
             irony = final.emacsPackages.melpaPackages.irony;
           });
 
-          emacsNativeComp-nox = ((final.emacs-overlay.emacsGit.override {
+          emacsGitNativeCompNox = ((final.emacsGit.override {
             nativeComp = true;
             withX = false;
             withGTK2 = false;
@@ -135,15 +136,28 @@
             perlPackages.RPCEPCService
           ];
 
-          melpaPackagesOverride = melpaPackages: melpaPackages // {
-            tsc = melpaPackages.tsc.overrideAttrs (old: {
+          emacsPackagesOverride = emacsPackages: let
+            optionalOverrideAttrs = name: fn:
+              pkgs.lib.optionalAttrs (builtins.hasAttr name emacsPackages) {
+                "${name}" = emacsPackages."${name}".overrideAttrs fn;
+              };
+          in
+            emacsPackages
+            // optionalOverrideAttrs "tsc" (old: {
               postPatch = (old.postPatch or "") + ''
                 substituteInPlace core/tsc-dyn-get.el --replace \
                 "tsc-dyn-dir tsc--dir" "tsc-dyn-dir \"/ws/emacs-tree-sitter/result/lib\""
               '';
-            });
+            })
+            // optionalOverrideAttrs "irony" (old: {
+              postPatch = ''
+                #${prev.tree}/bin/tree $src
+                sed -i '/define-minor-mode/,/:group/ { s/nil/:init-value nil/ ; s/irony-lighter/:lighter irony-lighter/ ; s/irony-mode-map/:keymap irony-mode-map/ }' irony.el
+              '' + (old.postPatch or "");
+              doCheck = false;
+            })
             # lives in ~/.emacs.d/git now
-            #tree-sitter-langs = melpaPackages.tree-sitter-langs.overrideAttrs (old: let
+            #tree-sitter-langs = emacsPackages.tree-sitter-langs.overrideAttrs (old: let
             #  grammars = (pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars));
             #in {
             #  propagatedNativeBuildInputs = (old.propagatedNativeBuildInputs or []) ++ [
@@ -159,27 +173,27 @@
             #  #    "\"${grammars}/\""
             #  #'';
             #});
-            irony = melpaPackages.irony.overrideAttrs (old: {
-              postPatch = ''
-                #${prev.tree}/bin/tree $src
-                sed -i '/define-minor-mode/,/:group/ { s/nil/:init-value nil/ ; s/irony-lighter/:lighter irony-lighter/ ; s/irony-mode-map/:keymap irony-mode-map/ }' irony.el
-              '' + (old.postPatch or "");
-              doCheck = false;
-            });
-          };
+          ;
 
-          emacsPackages = (final.emacs-overlay.emacsPackagesFor final.emacsNativeComp-nox).overrideScope' (eself: esuper:
-            let
-              melpaPackages = final.melpaPackagesOverride esuper.melpaPackages;
-            in
-            esuper.elpaPackages
-            // { inherit (esuper) elpaPackages; }
-            // melpaPackages
-            // { inherit melpaPackages; });
+          emacsPackages = (final.emacsPackagesFor final.emacsGitNativeCompNox)
+            .overrideScope' (
+              eself: esuper:
+              let
+                elpaPackages = final.emacsPackagesOverride esuper.elpaPackages;
+                melpaPackages = final.emacsPackagesOverride esuper.melpaPackages;
+                nongnuPackages = final.emacsPackagesOverride esuper.nongnuPackages;
+              in
+              elpaPackages
+              // { inherit elpaPackages; }
+              // melpaPackages
+              // { inherit melpaPackages; }
+              // nongnuPackages
+              // { inherit nongnuPackages; }
+          );
 
-          emacsGitWithPackages = (final.emacs-overlay.emacsWithPackagesFromUsePackage {
+          emacsGitNativeCompNoxWithPackages = (final.emacsWithPackagesFromUsePackage {
             config = builtins.readFile inputs.init-leafs.outPath;
-            package = final.emacsNativeComp-nox;
+            package = final.emacsGitNativeCompNox;
             alwaysEnsure = true;
 
             extraEmacsPackages = epkgs: with epkgs; [
@@ -188,7 +202,7 @@
               tsc
               # lives in ~/.emacs.d/git now
               #tree-sitter-langs
-              tree-sitter
+              #tree-sitter
             ];
 
             override = _: final.emacsPackages;
@@ -196,14 +210,14 @@
 
           emacsGitLoadPath = prev.writeText "eval-when-compile-load-path.el" ''
             (eval-when-compile
-              (let ((default-directory "${final.emacsGitWithPackages.deps.outPath}/share/emacs/site-lisp"))
+              (let ((default-directory "${final.emacsGitNativeCompNoxWithPackages.deps.outPath}/share/emacs/site-lisp"))
                 (normal-top-level-add-subdirs-to-load-path)))
           '';
 
           emacs-git-ide = with final; prev.symlinkJoin {
             name = "emacs";
             paths = [
-              emacsGitWithPackages
+              emacsGitNativeCompNoxWithPackages
               (if useLatestNodeJS then nodejs_latest else nodejs)
               rustStable.rust
             ]
