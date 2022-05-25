@@ -179,16 +179,20 @@
             .overrideScope' (
               eself: esuper:
               let
+                blockNongnu = [ "solarized-theme" ];
+                blockMelpa = [ "php-mode" ];
                 elpaPackages = final.emacsPackagesOverride esuper.elpaPackages;
-                melpaPackages = final.emacsPackagesOverride esuper.melpaPackages;
-                nongnuPackages = final.emacsPackagesOverride esuper.nongnuPackages;
+                nongnuPackages = prev.lib.filterAttrs (n: v: !(builtins.elem n blockNongnu))
+				                           (final.emacsPackagesOverride esuper.nongnuPackages);
+                melpaPackages = prev.lib.filterAttrs (n: v: !(builtins.elem n blockMelpa))
+				                          (final.emacsPackagesOverride esuper.melpaPackages);
               in
               elpaPackages
               // { inherit elpaPackages; }
-              // melpaPackages
-              // { inherit melpaPackages; }
               // nongnuPackages
               // { inherit nongnuPackages; }
+              // melpaPackages
+              // { inherit melpaPackages; }
           );
 
           emacsGitNativeCompNoxWithPackages = (final.emacsWithPackagesFromUsePackage {
@@ -202,7 +206,7 @@
               tsc
               # lives in ~/.emacs.d/git now
               #tree-sitter-langs
-              #tree-sitter
+              tree-sitter
             ];
 
             override = _: final.emacsPackages;
