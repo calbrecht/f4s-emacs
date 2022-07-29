@@ -163,17 +163,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1643586450,
-        "narHash": "sha256-BRIAc3+zavSlJPYSbov2n1W9/a4Iuh2swFPYRWjCm1g=",
+        "lastModified": 1658963292,
+        "narHash": "sha256-4OIpATLdPQvryyhRQPELeqNYC0n6PCyjD6LCPdwOztc=",
         "owner": "nix-community",
         "repo": "rnix-lsp",
-        "rev": "41eb2f3366e3f351bf2563c2a7c46fd17e78dfe0",
+        "rev": "ff18e04551a39ccdab0ff9c83926db3807b23478",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "rnix-lsp",
-        "rev": "41eb2f3366e3f351bf2563c2a7c46fd17e78dfe0",
+        "rev": "ff18e04551a39ccdab0ff9c83926db3807b23478",
         "type": "github"
       }
     },

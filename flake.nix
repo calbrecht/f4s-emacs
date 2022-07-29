@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rnix-lsp = {
-      url = github:nix-community/rnix-lsp/41eb2f3366e3f351bf2563c2a7c46fd17e78dfe0;
+      url = github:nix-community/rnix-lsp/ff18e04551a39ccdab0ff9c83926db3807b23478;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
