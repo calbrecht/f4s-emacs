@@ -60,7 +60,7 @@
             (inputs.emacs-overlay.overlay final prev);
 
           inherit (final.emacs-overlay)
-             emacsGit emacsPackagesFor emacsWithPackagesFromUsePackage;
+             emacsGitNativeComp emacsPackagesFor emacsWithPackagesFromUsePackage;
 
           nodePackages = (prev.nodePackages or { }) //
             (inputs.nodejs.overlay final prev).nodePackages;
@@ -86,8 +86,7 @@
             irony = final.emacsPackages.melpaPackages.irony;
           });
 
-          emacsGitNativeCompNox = ((final.emacsGit.override {
-            nativeComp = true;
+          emacsGitNativeCompNox = ((final.emacsGitNativeComp.override {
             withX = false;
             withGTK2 = false;
             withGTK3 = false;
