@@ -3,6 +3,7 @@ name: Update emacs inputs.
 on:
   schedule:
   - cron: "0 23 * * *"
+  push:
 
 jobs:
   auto-update:
