@@ -103,7 +103,7 @@
 
           emacsExtraPathPackages = with final; [
             #TODO crate2nix
-            inputs.rnix-lsp.defaultPackage."${system}"
+            #inputs.rnix-lsp.defaultPackage."${system}"
             nixpkgs-fmt
             fd
             jsonnet-language-server
