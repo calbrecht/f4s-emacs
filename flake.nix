@@ -106,6 +106,7 @@
             inputs.rnix-lsp.defaultPackage."${system}"
             nixpkgs-fmt
             fd
+            jsonnet-language-server
             fzf
             ripgrep
             shellcheck
