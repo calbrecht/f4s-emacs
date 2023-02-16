@@ -71,6 +71,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
+          "rnix-lsp",
           "nixpkgs"
         ]
       },
@@ -199,11 +200,11 @@
         "nixpkgs-mozilla": "nixpkgs-mozilla"
       },
       "locked": {
-        "lastModified": 1676542943,
-        "narHash": "sha256-oV9C3RpAFXCy9PQ58dSQ5iZpvQqmkbK/Zw/egC/LSEg=",
+        "lastModified": 1676543119,
+        "narHash": "sha256-K5a8CcSg2cRxKU3vOna0iUot+Ejd8Ie8y2eAPF6ssNk=",
         "owner": "calbrecht",
         "repo": "f4s-rust",
-        "rev": "e0b622897e5830fbf0b093c337cc1f94377da82c",
+        "rev": "c5d88fba93a2d7dc330af221544e30fde456ba40",
         "type": "github"
       },
       "original": {
