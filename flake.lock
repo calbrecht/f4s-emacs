@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1677409482,
-        "narHash": "sha256-Cceb+9Y84clmqHDXoDPh0tZv3ZdWjfIVN1MR+2N6G2I=",
+        "lastModified": 1677412975,
+        "narHash": "sha256-+KQzylT3JCeYuFpVT5DtdibAxVKuDccFqb97pvxXdvA=",
         "owner": "calbrecht",
         "repo": "f4s-fixups",
-        "rev": "0623ff573d6a3f3bfb3b16db60ce98b8f5146a4c",
+        "rev": "a7eb1a14aff0462b480c092b4eb56ec97af0d40d",
         "type": "github"
       },
       "original": {
@@ -71,6 +71,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
+          "rnix-lsp",
           "nixpkgs"
         ]
       },
@@ -90,11 +91,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1677408868,
-        "narHash": "sha256-ZecfH9BUhDGbfKsX4kzjFljYHdO0D/sHdRJHk5QJWSU=",
+        "lastModified": 1677410911,
+        "narHash": "sha256-Q/q4AliesSjyzrjirW/Lub11CPZ+g3Sr5v9Ff3Uagok=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5c276de32a733606e3733affbe135a2279878bf2",
+        "rev": "5353b1bd379325eac86d27664c5b9d0f41b15691",
         "type": "github"
       },
       "original": {
@@ -127,11 +128,11 @@
         "pkgs-src": "pkgs-src"
       },
       "locked": {
-        "lastModified": 1677409488,
-        "narHash": "sha256-xioa7//GOkYIEb0g94CJtzrdJu8iXsriedQgSUmdsOY=",
+        "lastModified": 1677412981,
+        "narHash": "sha256-BiX60otha7xm7/Xe7mauaJlntrx82PK0XDtVVr75DLc=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "f326714a74032c3f780faabd5a5c0aa4c71b3842",
+        "rev": "4f5957c6985d2fc518d45ff39ba1649689bebe70",
         "type": "github"
       },
       "original": {
@@ -199,11 +200,11 @@
         "nixpkgs-mozilla": "nixpkgs-mozilla"
       },
       "locked": {
-        "lastModified": 1677409493,
-        "narHash": "sha256-0UWEDmOiRaex8NFbUez9wwJiBfRoh/x21StU8in/hUU=",
+        "lastModified": 1677412987,
+        "narHash": "sha256-yMTgNcGfhNgG/o5oSFH0cQRZL5t2Pke6Bwng2MsypnY=",
         "owner": "calbrecht",
         "repo": "f4s-rust",
-        "rev": "31cffef09cde190bdec89cb466473b5315c8625d",
+        "rev": "bf2f90ec43d930730aa91a680ed8b304554c0cea",
         "type": "github"
       },
       "original": {
