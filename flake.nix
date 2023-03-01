@@ -60,7 +60,7 @@
             (inputs.emacs-overlay.overlay final prev);
 
           inherit (final.emacs-overlay)
-             emacsGitNativeComp emacsPackagesFor emacsWithPackagesFromUsePackage;
+             emacsGit emacsPackagesFor emacsWithPackagesFromUsePackage;
 
           nodePackages = (prev.nodePackages or { }) //
             (inputs.nodejs.overlay final prev).nodePackages;
@@ -86,12 +86,12 @@
             irony = final.emacsPackages.melpaPackages.irony;
           });
 
-          emacsGitNativeCompNox = ((final.emacsGitNativeComp.override {
+          emacsGitNox = ((final.emacsGit.override {
             withX = false;
             withGTK2 = false;
             withGTK3 = false;
           }).overrideAttrs (oa: {
-            name = "${oa.name}-native-comp-nox";
+            name = "${oa.name}-nox";
           }));
 
           emacsNodePackages = prev.lib.attrValues {
@@ -175,7 +175,7 @@
             #});
           ;
 
-          emacsPackages = (final.emacsPackagesFor final.emacsGitNativeCompNox)
+          emacsPackages = (final.emacsPackagesFor final.emacsGitNox)
             .overrideScope' (
               eself: esuper:
               let
@@ -194,9 +194,9 @@
               // melpaPackages // { inherit melpaPackages; }
           );
 
-          emacsGitNativeCompNoxWithPackages = (final.emacsWithPackagesFromUsePackage {
+          emacsGitNoxWithPackages = (final.emacsWithPackagesFromUsePackage {
             config = builtins.readFile inputs.init-leafs.outPath;
-            package = final.emacsGitNativeCompNox;
+            package = final.emacsGitNox;
             alwaysEnsure = true;
 
             extraEmacsPackages = epkgs: with epkgs; [
@@ -213,14 +213,14 @@
 
           emacsGitLoadPath = prev.writeText "eval-when-compile-load-path.el" ''
             (eval-when-compile
-              (let ((default-directory "${final.emacsGitNativeCompNoxWithPackages.deps.outPath}/share/emacs/site-lisp"))
+              (let ((default-directory "${final.emacsGitNoxWithPackages.deps.outPath}/share/emacs/site-lisp"))
                 (normal-top-level-add-subdirs-to-load-path)))
           '';
 
           emacs-git-ide = with final; prev.symlinkJoin {
             name = "emacs";
             paths = [
-              emacsGitNativeCompNoxWithPackages
+              emacsGitNoxWithPackages
               (if useLatestNodeJS then nodejs_latest else nodejs)
               rustStable.rust
             ]
