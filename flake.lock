@@ -58,8 +58,8 @@
     "init-leafs": {
       "flake": false,
       "locked": {
-        "lastModified": 1681630834,
-        "narHash": "sha256-gYpveDUkrKs3czssph65QZ9p7DdtwNvyl9f7QVivszE=",
+        "lastModified": 1681631328,
+        "narHash": "sha256-bJa9BcVP+voqeiAxjwptT9LrnP+T1JxQpoArZNtihBY=",
         "path": "/home/alab/.emacs.i/init-leafs.el",
         "type": "path"
       },
@@ -71,6 +71,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
+          "rnix-lsp",
           "nixpkgs"
         ]
       },
