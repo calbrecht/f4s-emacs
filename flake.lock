@@ -2,7 +2,9 @@
   "nodes": {
     "emacs-overlay": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -29,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1690112125,
-        "narHash": "sha256-+TFNH2q2NBMEgGH5ZsFnqqcnrE0gRVH0RsLYzqdWs4c=",
+        "lastModified": 1690129135,
+        "narHash": "sha256-2cgsyzsYn/UX3B+o5Xa3sO49OhZ6hB1A0XR6cBwt+OA=",
         "owner": "calbrecht",
         "repo": "f4s-fixups",
-        "rev": "5e8560703c0d631a5f18da22b61338158ba826e7",
+        "rev": "e99ccdb090e15c83419b6007a17c9aa24757ec94",
         "type": "github"
       },
       "original": {
@@ -43,7 +45,9 @@
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems"
+        "systems": [
+          "systems"
+        ]
       },
       "locked": {
         "lastModified": 1689068808,
@@ -204,11 +208,13 @@
       "inputs": {
         "emacs-overlay": "emacs-overlay",
         "fixups": "fixups",
+        "flake-utils": "flake-utils",
         "init-leafs": "init-leafs",
         "nixpkgs": "nixpkgs",
         "nodejs": "nodejs",
         "rnix-lsp": "rnix-lsp",
-        "rust": "rust"
+        "rust": "rust",
+        "systems": "systems"
       }
     },
     "rust": {
@@ -233,16 +239,16 @@
     },
     "systems": {
       "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "lastModified": 1680978846,
+        "narHash": "sha256-Gtqg8b/v49BFDpDetjclCYXm8mAnTrUzR0JnE2nv5aw=",
         "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "repo": "x86_64-linux",
+        "rev": "2ecfcac5e15790ba6ce360ceccddb15ad16d08a8",
         "type": "github"
       },
       "original": {
         "owner": "nix-systems",
-        "repo": "default",
+        "repo": "x86_64-linux",
         "type": "github"
       }
     },

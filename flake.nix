@@ -6,9 +6,15 @@
   };
 
   inputs = {
+    systems.url = github:nix-systems/x86_64-linux;
+    flake-utils = {
+      url = github:numtide/flake-utils;
+      inputs.systems.follows = "systems";
+    };
     emacs-overlay = {
       url = github:nix-community/emacs-overlay;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     init-leafs = {
       url = path:/home/alab/.emacs.i/init-leafs.el;
@@ -32,24 +38,26 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+    flake-utils.lib.eachDefaultSystem (system:
     let
-      system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          inputs.fixups.overlay
-          self.overlay
+          inputs.fixups.overlays.default
+          self.overlays.default
         ];
       };
-      useLatestNodeJS = true;
-    in
-    {
-      defaultPackage."${system}" = pkgs.emacs-git-ide;
-
-      legacyPackages."${system}" = pkgs;
-
-      overlay = final: prev:
+    in {
+      packages = {
+        inherit (pkgs) emacs-git-ide;
+      };
+    }) // {
+      overlays = let
+        useLatestNodeJS = true;
+      in {
+        default = self.overlays.emacs;
+        emacs = final: prev:
         let
           libclangLib = with final; "${lib.getLib llvmPackages.libclang}/lib";
           libclangIncludes = with final; "${libclangLib}/clang/${lib.getVersion llvmPackages.clang}/include";
@@ -60,7 +68,7 @@
             (inputs.emacs-overlay.overlay final prev);
 
           inherit (final.emacs-overlay)
-             emacsGit emacsPackagesFor emacsWithPackagesFromUsePackage;
+             emacs-git emacsPackagesFor emacsWithPackagesFromUsePackage;
 
           nodePackages = (prev.nodePackages or { }) //
             (inputs.nodejs.overlay final prev).nodePackages;
@@ -86,7 +94,7 @@
             irony = final.emacsPackages.melpaPackages.irony;
           });
 
-          emacsGitNox = ((final.emacsGit.override {
+          emacs-git-nox = ((final.emacs-git.override {
             withX = false;
             withGTK2 = false;
             withGTK3 = false;
@@ -138,7 +146,7 @@
 
           emacsPackagesOverride = emacsPackages: let
             optionalOverrideAttrs = name: fn:
-              pkgs.lib.optionalAttrs (builtins.hasAttr name emacsPackages) {
+              prev.lib.optionalAttrs (builtins.hasAttr name emacsPackages) {
                 "${name}" = emacsPackages."${name}".overrideAttrs fn;
               };
           in
@@ -175,7 +183,7 @@
             #});
           ;
 
-          emacsPackages = (final.emacsPackagesFor final.emacsGitNox)
+          emacsPackages = (final.emacsPackagesFor final.emacs-git-nox)
             .overrideScope' (
               eself: esuper:
               let
@@ -196,7 +204,7 @@
 
           emacsGitNoxWithPackages = (final.emacsWithPackagesFromUsePackage {
             config = builtins.readFile inputs.init-leafs.outPath;
-            package = final.emacsGitNox;
+            package = final.emacs-git-nox;
             alwaysEnsure = true;
 
             extraEmacsPackages = epkgs: with epkgs; [
@@ -242,5 +250,6 @@
             '';
           };
         };
+      };
     };
 }
