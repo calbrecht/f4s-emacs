@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1690197195,
-        "narHash": "sha256-Yxumbr+BZAtLT8zuHbkUVR3TvfTHtHoQlX3bOJJsvQ0=",
+        "lastModified": 1690214647,
+        "narHash": "sha256-XD26HQkZq3p8mAZ1kmOABR46YMVuJSEETrrcgDSv1/g=",
         "owner": "calbrecht",
         "repo": "f4s-fixups",
-        "rev": "3f993e39ae59b6779b15173cb5e5fc91b1bc9e41",
+        "rev": "64e2e0c8da0c69ed3fc287a3b5c5e326d362d8d1",
         "type": "github"
       },
       "original": {
@@ -79,6 +79,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
+          "rnix-lsp",
           "nixpkgs"
         ]
       },
