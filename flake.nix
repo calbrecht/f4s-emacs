@@ -6,36 +6,15 @@
   };
 
   inputs = {
+    emacs-overlay.url = github:nix-community/emacs-overlay;
+    fixups.url = flake:f4s-fixups;
+    flake-utils.url = github:numtide/flake-utils;
+    init-leafs.flake = false;
+    init-leafs.url = path:/home/alab/.emacs.i/init-leafs.el;
+    nodejs.url = flake:f4s-nodejs;
+    rnix-lsp.url = github:nix-community/rnix-lsp/ff18e04551a39ccdab0ff9c83926db3807b23478;
+    rust.url = flake:f4s-rust;
     systems.url = github:nix-systems/x86_64-linux;
-    flake-utils = {
-      url = github:numtide/flake-utils;
-      inputs.systems.follows = "systems";
-    };
-    emacs-overlay = {
-      url = github:nix-community/emacs-overlay;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    init-leafs = {
-      url = path:/home/alab/.emacs.i/init-leafs.el;
-      flake = false;
-    };
-    nodejs = {
-      url = flake:f4s-nodejs;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    fixups = {
-      url = flake:f4s-fixups;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    rust = {
-      url = flake:f4s-rust;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    rnix-lsp = {
-      url = github:nix-community/rnix-lsp/ff18e04551a39ccdab0ff9c83926db3807b23478;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }@inputs:
