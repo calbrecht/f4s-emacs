@@ -6,9 +6,9 @@
   };
 
   inputs = {
-    emacs-overlay.url = github:nix-community/emacs-overlay;
+    emacs-overlay.url = flake:emacs-overlay;
     fixups.url = flake:f4s-fixups;
-    flake-utils.url = github:numtide/flake-utils;
+    flake-utils.url = flake:flake-utils;
     init-leafs.flake = false;
     init-leafs.url = path:/home/alab/.emacs.i/init-leafs.el;
     nodejs.url = flake:f4s-nodejs;
