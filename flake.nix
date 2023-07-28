@@ -2,20 +2,20 @@
   description = "Emacs setup flake.";
 
   nixConfig = {
-    flake-registry = https://github.com/calbrecht/f4s-registry/raw/main/flake-registry.json;
+    flake-registry = "https://github.com/calbrecht/f4s-registry/raw/main/flake-registry.json";
   };
 
   inputs = {
-    emacs-overlay.url = flake:emacs-overlay;
-    fixups.url = flake:f4s-fixups;
-    flake-parts.url = flake:flake-parts;
+    emacs-overlay.url = "flake:emacs-overlay";
+    fixups.url = "flake:f4s-fixups";
+    flake-parts.url = "flake:flake-parts";
     init-leafs.flake = false;
-    init-leafs.url = path:/home/alab/.emacs.i/init-leafs.el;
-    nixpkgs.url = flake:nixpkgs;
-    nodejs.url = flake:f4s-nodejs;
-    rnix-lsp.url = github:nix-community/rnix-lsp/ff18e04551a39ccdab0ff9c83926db3807b23478;
-    rust.url = flake:f4s-rust;
-    systems.url = github:nix-systems/x86_64-linux;
+    init-leafs.url = "path:/home/alab/.emacs.i/init-leafs.el";
+    nixpkgs.url = "flake:nixpkgs";
+    nodejs.url = "flake:f4s-nodejs";
+    nil.url = "github:oxalica/nil/a2668f5680c48d6ed14f4de7afbbd5f54810f76e";
+    rust.url = "flake:f4s-rust";
+    systems.url = "github:nix-systems/x86_64-linux";
   };
 
   outputs = inputs: let
@@ -45,6 +45,7 @@
       inputs.emacs-overlay.overlay
       inputs.nodejs.overlay
       inputs.rust.overlay
+      inputs.nil.overlays.nil
       top.config.flake.overlays.emacs
     ] final;
     flake.overlays.emacs = final: prev:
@@ -79,20 +80,28 @@
 
       emacsExtraPathPackages = with final; [
         #TODO crate2nix
-        #inputs.rnix-lsp.defaultPackage."${system}"
-        nixpkgs-fmt
+        diffutils
         fd
-        jsonnet-language-server
         fzf
+        irony-server
+        jsonnet-language-server
+        llvmPackages.bintools
+        llvmPackages.clang
+        nil
+        nixpkgs-fmt
+        pkg-config
         ripgrep
         shellcheck
         stdenv.cc.bintools.bintools_bin
-        diffutils
-        llvmPackages.clang
-        llvmPackages.bintools
-        pkg-config
         tree-sitter
-        irony-server
+        perlPackages.AnyEvent
+        perlPackages.ClassAccessorFast
+        perlPackages.DBDMariaDB
+        perlPackages.DBDPg
+        perlPackages.DBDSQLite
+        perlPackages.DBI
+        perlPackages.DataSExpression
+        perlPackages.RPCEPCService
         (php81.override {
           packageOverrides = final: prev: {
             extensions = prev.extensions // {
@@ -102,14 +111,6 @@
             };
           };
         })
-        perlPackages.AnyEvent
-        perlPackages.ClassAccessorFast
-        perlPackages.DataSExpression
-        perlPackages.DBI
-        perlPackages.DBDSQLite
-        perlPackages.DBDMariaDB
-        perlPackages.DBDPg
-        perlPackages.RPCEPCService
       ];
 
       emacsPackagesOverride = emacsPackages: let
