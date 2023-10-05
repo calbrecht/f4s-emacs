@@ -161,6 +161,7 @@
         extraEmacsPackages = epkgs: with epkgs; [
           # meh, this break doom-modeline
           #all-the-icons
+          mu4e
           tsc
           # lives in ~/.emacs.d/git now
           #tree-sitter-langs
@@ -189,7 +190,6 @@
           rustStable.rust-src
         ];
         postBuild = ''
-          unlink $out/share/emacs
           mkdir -p $out/share/emacs/site-lisp
           cp ${emacsGitLoadPath} $out/share/emacs/site-lisp/eval-when-compile-load-path.el
           wrapProgram $out/bin/emacs \
