@@ -93,7 +93,7 @@
         ripgrep
         shellcheck
         stdenv.cc.bintools.bintools_bin
-        tree-sitter
+        #tree-sitter
         perlPackages.AnyEvent
         perlPackages.ClassAccessorFast
         perlPackages.DBDMariaDB
@@ -162,10 +162,10 @@
           # meh, this break doom-modeline
           #all-the-icons
           mu4e
-          tsc
+          #tsc for tree-sitter
           # lives in ~/.emacs.d/git now
           #tree-sitter-langs
-          tree-sitter
+          #tree-sitter
         ];
 
         override = _: final.emacsPackages;
