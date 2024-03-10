@@ -13,7 +13,7 @@
     init-leafs.url = "path:/home/alab/.emacs.i/init-leafs.el";
     nixpkgs.url = "flake:nixpkgs";
     nodejs.url = "flake:f4s-nodejs";
-    nil.url = "github:oxalica/nil/a2668f5680c48d6ed14f4de7afbbd5f54810f76e";
+    nil.url = "github:oxalica/nil/059d33a24bb76d2048740bcce936362bf54b5bc9";
     rust.url = "flake:f4s-rust";
     systems.url = "github:nix-systems/x86_64-linux";
   };
