@@ -136,7 +136,7 @@
       ];
 
       emacsPackages = (prev.emacsPackagesFor prev.emacs-git-nox)
-        .overrideScope' (eself: esuper:
+        .overrideScope (eself: esuper:
         let
           blockElpa = [ ];
           blockNongnu = [ "solarized-theme" ];
