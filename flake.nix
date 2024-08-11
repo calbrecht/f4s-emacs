@@ -13,7 +13,7 @@
     init-leafs.url = "path:/home/alab/.emacs.i/init-leafs.el";
     nixpkgs.url = "flake:nixpkgs";
     nodejs.url = "flake:f4s-nodejs";
-    nil.url = "github:oxalica/nil/2f3ed6348bbf1440fcd1ab0411271497a0fbbfa4";
+    nil.url = "github:oxalica/nil/70df371289962554cf7a23ed595b23a2ce271960";
     rust.url = "flake:f4s-rust";
     systems.url = "github:nix-systems/x86_64-linux";
   };
@@ -107,9 +107,9 @@
         (php81.override {
           packageOverrides = final: prev: {
             extensions = prev.extensions // {
-              fileinfo = prev.extensions.fileinfo.overrideAttrs (old: {
-                doCheck = false;
-              });
+              fileinfo = prev.extensions.fileinfo.overrideAttrs (_: { doCheck = false; });
+              simplexml = prev.extensions.simplexml.overrideAttrs (_: { doCheck = false; });
+              dom = prev.extensions.dom.overrideAttrs (_: { doCheck = false; });
             };
           };
         })
