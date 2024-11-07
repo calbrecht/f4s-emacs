@@ -148,7 +148,7 @@
       emacsPackages = (prev.emacsPackagesFor prev.emacs-git-nox)
         .overrideScope (eself: esuper:
         let
-          blockElpa = [ "docker" ];
+          blockElpa = [ "docker" "aio" ];
           blockNongnu = [ "solarized-theme" ];
           blockMelpa = [ "php-mode" ];
           overridePkgs = emacsPkgs: block:
