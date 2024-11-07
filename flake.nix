@@ -56,16 +56,16 @@
       libcxxIncludes = "${getDev llvmPackages.libcxx}/include/c++/v1";
     in
     {
-      tree-sitter = (prev.tree-sitter.overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + ''
-          #${prev.tree}/bin/tree .
-          substituteInPlace cli/src/generate/templates/build.rs --replace \
-            ".include(&src_dir);" ".include(&src_dir).include(\"${libclangIncludes}\");"
-
-          substituteInPlace cli/loader/src/lib.rs --replace \
-            ".host(BUILD_TARGET);" ".host(BUILD_TARGET).include(\"${libcxxIncludes}\");"
-        '';
-      }));
+      #tree-sitter = (prev.tree-sitter.overrideAttrs (old: {
+      #  postPatch = (old.postPatch or "") + ''
+      #    #${prev.tree}/bin/tree .
+      #    substituteInPlace cli/src/generate/templates/build.rs --replace \
+      #      ".include(&src_dir);" ".include(&src_dir).include(\"${libclangIncludes}\");"
+      #
+      #    substituteInPlace cli/loader/src/lib.rs --replace \
+      #      ".host(BUILD_TARGET);" ".host(BUILD_TARGET).include(\"${libcxxIncludes}\");"
+      #  '';
+      #}));
 
       irony-server = (prev.irony-server.override {
         irony = final.emacsPackages.melpaPackages.irony;
@@ -135,6 +135,14 @@
           '' + (old.postPatch or "");
           doCheck = false;
         }))
+        #(optionalOverrideAttrs "" (old: {
+        #  postPatch = ''
+        #    #${prev.tree}/bin/tree $src
+        #    substituteInPlace .el --replace \
+        #    "'create-solarized-theme-file 'solarized-create-theme-file)" \
+        #    "'create-solarized-theme-file 'solarized-create-theme-file \"0\")"
+        #  '' + (old.postPatch or "");
+        #}))
       ];
 
       emacsPackages = (prev.emacsPackagesFor prev.emacs-git-nox)
