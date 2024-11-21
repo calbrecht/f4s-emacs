@@ -91,8 +91,8 @@
     "init-leafs": {
       "flake": false,
       "locked": {
-        "lastModified": 1731004166,
-        "narHash": "sha256-pARQNDpEp/tLJ9tr8G5xki7IJEmHubzuL2y49CrTVgA=",
+        "lastModified": 1732193799,
+        "narHash": "sha256-OnBa6XnbIkrVA54RsOD7X5ovULEmptI3VwStDo5STHg=",
         "path": "/home/alab/.emacs.i/init-leafs.el",
         "type": "path"
       },
