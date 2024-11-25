@@ -135,6 +135,9 @@
           '' + (old.postPatch or "");
           doCheck = false;
         }))
+        (optionalOverrideAttrs "rg" (old: {
+          ignoreCompilationError = true;
+        }))
         #(optionalOverrideAttrs "" (old: {
         #  postPatch = ''
         #    #${prev.tree}/bin/tree $src
