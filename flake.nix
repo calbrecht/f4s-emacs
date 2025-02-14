@@ -81,6 +81,10 @@
       };
 
       emacsExtraPathPackages = with final; [
+        git
+        nix
+        wl-clipboard
+        nixfmt-rfc-style
         #TODO crate2nix
         diffutils
         fd
