@@ -83,7 +83,7 @@
       emacsExtraPathPackages = with final; [
         git
         nix
-        wl-clipboard
+        wl-clipboard-rs
         nixfmt-rfc-style
         #TODO crate2nix
         diffutils
