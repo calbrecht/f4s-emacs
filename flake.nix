@@ -82,6 +82,7 @@
 
       emacsExtraPathPackages = with final; [
         git
+        gnupg # sign git commits
         nix
         wl-clipboard-rs
         nixfmt-rfc-style
@@ -100,23 +101,25 @@
         shellcheck
         stdenv.cc.bintools.bintools_bin
         #tree-sitter
-        perlPackages.AnyEvent
-        perlPackages.ClassAccessorFast
-        perlPackages.DBDMariaDB
-        perlPackages.DBDPg
-        perlPackages.DBDSQLite
-        perlPackages.DBI
-        perlPackages.DataSExpression
-        perlPackages.RPCEPCService
-        (php81.override {
-          packageOverrides = final: prev: {
-            extensions = prev.extensions // {
-              fileinfo = prev.extensions.fileinfo.overrideAttrs (_: { doCheck = false; });
-              simplexml = prev.extensions.simplexml.overrideAttrs (_: { doCheck = false; });
-              dom = prev.extensions.dom.overrideAttrs (_: { doCheck = false; });
-            };
-          };
-        })
+        # Actually not in use 2025-03-29.
+        #perlPackages.AnyEvent
+        #perlPackages.ClassAccessorFast
+        #perlPackages.DBDMariaDB
+        #perlPackages.DBDPg
+        #perlPackages.DBDSQLite
+        #perlPackages.DBI
+        #perlPackages.DataSExpression
+        #perlPackages.RPCEPCService
+        # Actually not in use 2025-03-29.
+        #(php81.override {
+        #  packageOverrides = final: prev: {
+        #    extensions = prev.extensions // {
+        #      fileinfo = prev.extensions.fileinfo.overrideAttrs (_: { doCheck = false; });
+        #      simplexml = prev.extensions.simplexml.overrideAttrs (_: { doCheck = false; });
+        #      dom = prev.extensions.dom.overrideAttrs (_: { doCheck = false; });
+        #    };
+        #  };
+        #})
       ];
 
       emacsPackagesOverride = emacsPackages: let
