@@ -84,6 +84,7 @@
         git
         gnupg # sign git commits
         nix
+        openssh
         wl-clipboard-rs
         nixfmt-rfc-style
         #TODO crate2nix
