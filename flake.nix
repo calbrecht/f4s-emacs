@@ -131,6 +131,13 @@
           };
       in foldl recursiveUpdate {} [
         emacsPackages
+        (optionalOverrideAttrs "flycheck" (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace flycheck.el --replace \
+            "flycheck-shellcheck-supported-shells '(bash ksh88 sh)" \
+            "flycheck-shellcheck-supported-shells '(dash bash ksh88 sh)"
+          '';
+        }))
         (optionalOverrideAttrs "tsc" (old: {
           postPatch = (old.postPatch or "") + ''
             substituteInPlace core/tsc-dyn-get.el --replace \
