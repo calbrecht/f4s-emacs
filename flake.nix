@@ -133,7 +133,7 @@
         emacsPackages
         (optionalOverrideAttrs "flycheck" (old: {
           postPatch = (old.postPatch or "") + ''
-            substituteInPlace flycheck.el --replace \
+            substituteInPlace flycheck.el --replace-fail \
               "flycheck-shellcheck-supported-shells '(bash ksh88 sh)" \
               "flycheck-shellcheck-supported-shells '(dash bash ksh88 sh)"
             sed -i "/flycheck-define-checker sh-posix-dash/,/:predicate/{ s/(eq sh-shell 'sh)/(or (eq sh-shell 'sh) (eq sh-shell 'dash))/ }"
@@ -141,7 +141,7 @@
         }))
         (optionalOverrideAttrs "tsc" (old: {
           postPatch = (old.postPatch or "") + ''
-            substituteInPlace core/tsc-dyn-get.el --replace \
+            substituteInPlace core/tsc-dyn-get.el --replace-warn \
             "tsc-dyn-dir tsc--dir" "tsc-dyn-dir \"/ws/emacs-tree-sitter/result/lib\""
           '';
         }))
