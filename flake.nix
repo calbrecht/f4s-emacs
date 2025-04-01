@@ -99,6 +99,7 @@
         nixpkgs-fmt
         pkg-config
         ripgrep
+        dash
         shellcheck
         stdenv.cc.bintools.bintools_bin
         #tree-sitter
