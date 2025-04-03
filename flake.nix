@@ -81,6 +81,7 @@
       };
 
       emacsExtraPathPackages = with final; [
+        coreutils
         git
         gnupg # sign git commits
         nix
