@@ -1,20 +1,16 @@
 {
   description = "Emacs setup flake.";
 
-  nixConfig = {
-    flake-registry = "https://github.com/calbrecht/f4s-registry/raw/main/flake-registry.json";
-  };
-
   inputs = {
-    emacs-overlay.url = "flake:emacs-overlay";
-    fixups.url = "flake:f4s-fixups";
-    flake-parts.url = "flake:flake-parts";
-    init-leafs.flake = false;
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    fixups.url = "github:calbrecht/f4s-fixups";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     init-leafs.url = "path:/home/alab/.emacs.i/init-leafs.el";
-    nixpkgs.url = "flake:nixpkgs";
-    nodejs.url = "flake:f4s-nodejs";
+    init-leafs.flake = false;
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    nodejs.url = "github:calbrecht/f4s-nodejs";
     nil.url = "github:oxalica/nil/70df371289962554cf7a23ed595b23a2ce271960";
-    rust.url = "flake:f4s-rust";
+    rust.url = "github:calbrecht/f4s-rust";
     systems.url = "github:nix-systems/x86_64-linux";
   };
 
@@ -140,12 +136,12 @@
             sed -i "/flycheck-define-checker sh-posix-dash/,/:predicate/{ s/(eq sh-shell 'sh)/(or (eq sh-shell 'sh) (eq sh-shell 'dash))/ }" flycheck.el
           '';
         }))
-        (optionalOverrideAttrs "tsc" (old: {
-          postPatch = (old.postPatch or "") + ''
-            substituteInPlace core/tsc-dyn-get.el --replace-warn \
-            "tsc-dyn-dir tsc--dir" "tsc-dyn-dir \"/ws/emacs-tree-sitter/result/lib\""
-          '';
-        }))
+        #(optionalOverrideAttrs "tsc" (old: {
+        #  postPatch = (old.postPatch or "") + ''
+        #    substituteInPlace core/tsc-dyn-get.el --replace-warn \
+        #    "tsc-dyn-dir tsc--dir" "tsc-dyn-dir \"/ws/emacs-tree-sitter/result/lib\""
+        #  '';
+        #}))
         (optionalOverrideAttrs "irony" (old: {
           postPatch = ''
             #${prev.tree}/bin/tree $src
@@ -205,6 +201,7 @@
       });
 
       emacsGitLoadPath = prev.writeText "eval-when-compile-load-path.el" ''
+        ;;; -*- lexical-binding: t; -*-
         (eval-when-compile
           (let ((default-directory "${final.emacsGitNoxWithPackages.deps.outPath}/share/emacs/site-lisp"))
             (normal-top-level-add-subdirs-to-load-path)))
