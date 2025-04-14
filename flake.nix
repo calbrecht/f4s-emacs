@@ -136,6 +136,13 @@
             sed -i "/flycheck-define-checker sh-posix-dash/,/:predicate/{ s/(eq sh-shell 'sh)/(or (eq sh-shell 'sh) (eq sh-shell 'dash))/ }" flycheck.el
           '';
         }))
+        (optionalOverrideAttrs "realgud" (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace realgud-recursive-autoloads.el --replace-fail \
+              ";;; realgud-recursive-autoloads.el --- automatically extracted autoloads" \
+              ";;; realgud-recursive-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t; -*-"
+          '';
+        }))
         #(optionalOverrideAttrs "tsc" (old: {
         #  postPatch = (old.postPatch or "") + ''
         #    substituteInPlace core/tsc-dyn-get.el --replace-warn \
