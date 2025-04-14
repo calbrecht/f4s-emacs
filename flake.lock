@@ -14,8 +14,9 @@
         "type": "github"
       },
       "original": {
-        "id": "emacs-overlay",
-        "type": "indirect"
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
       }
     },
     "fixups": {
@@ -31,8 +32,9 @@
         "type": "github"
       },
       "original": {
-        "id": "f4s-fixups",
-        "type": "indirect"
+        "owner": "calbrecht",
+        "repo": "f4s-fixups",
+        "type": "github"
       }
     },
     "flake-parts": {
@@ -48,8 +50,9 @@
         "type": "github"
       },
       "original": {
-        "id": "flake-parts",
-        "type": "indirect"
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
       }
     },
     "flake-utils": {
@@ -216,16 +219,17 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1744157173,
-        "narHash": "sha256-bWSjxDwq7iVePrhmA7tY2dyMWHuNJo8knkO4y+q4ZkY=",
-        "owner": "nixos",
+        "lastModified": 1744655238,
+        "narHash": "sha256-AjoLpTzy53FwGIRhMZfLOfCXOiUJ6rmJn7szHHOD4bI=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6a39c6e495eefabc935d8ddf66aa45d85b85fa3f",
+        "rev": "e03e0a55ad5c07ceab57f2e6d25929107fc116a8",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs_5": {
@@ -270,8 +274,9 @@
         "type": "github"
       },
       "original": {
-        "id": "f4s-nodejs",
-        "type": "indirect"
+        "owner": "calbrecht",
+        "repo": "f4s-nodejs",
+        "type": "github"
       }
     },
     "pkgs-src": {
@@ -319,8 +324,9 @@
         "type": "github"
       },
       "original": {
-        "id": "f4s-rust",
-        "type": "indirect"
+        "owner": "calbrecht",
+        "repo": "f4s-rust",
+        "type": "github"
       }
     },
     "rust-overlay": {
