@@ -77,6 +77,7 @@
       };
 
       emacsExtraPathPackages = with final; [
+        aider-chat
         coreutils
         git
         gnupg # sign git commits
