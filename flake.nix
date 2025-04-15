@@ -12,8 +12,8 @@
     nil.url = "github:oxalica/nil/70df371289962554cf7a23ed595b23a2ce271960";
     rust.url = "github:calbrecht/f4s-rust";
     systems.url = "github:nix-systems/x86_64-linux";
-    nix-treesitter.url = "github:ratson/nix-treesitter";
-    nix-treesitter.inputs.nixpkgs.follows = "nixpkgs";
+    tree-sitter-jq.url = "github:nverno/tree-sitter-jq";
+    tree-sitter-jq.flake = false;
   };
 
   outputs = inputs: let
@@ -54,18 +54,12 @@
       libcxxIncludes = "${getDev llvmPackages.libcxx}/include/c++/v1";
     in
     {
-      tsGrammars = inputs.nix-treesitter.outputs.packages.x86_64-linux;
 
-      #tree-sitter = (prev.tree-sitter.overrideAttrs (old: {
-      #  postPatch = (old.postPatch or "") + ''
-      #    #${prev.tree}/bin/tree .
-      #    substituteInPlace cli/src/generate/templates/build.rs --replace \
-      #      ".include(&src_dir);" ".include(&src_dir).include(\"${libclangIncludes}\");"
-      #
-      #    substituteInPlace cli/loader/src/lib.rs --replace \
-      #      ".host(BUILD_TARGET);" ".host(BUILD_TARGET).include(\"${libcxxIncludes}\");"
-      #  '';
-      #}));
+      tree-sitter = prev.tree-sitter.override {
+        extraGrammars = {
+          tree-sitter-jq.src = inputs.tree-sitter-jq;
+        };
+      };
 
       irony-server = (prev.irony-server.override {
         irony = final.emacsPackages.melpaPackages.irony;
@@ -210,9 +204,6 @@
           nix-ts-mode
           jq-ts-mode
           #tsc for tree-sitter
-          # lives in ~/.emacs.d/git now
-          #tree-sitter-langs
-          #tree-sitter
           (treesit-grammars.with-grammars (grammars: [
             grammars.tree-sitter-bash
             grammars.tree-sitter-rust
@@ -221,8 +212,7 @@
             grammars.tree-sitter-markdown-inline
             grammars.tree-sitter-json
             grammars.tree-sitter-json5
-            final.tsGrammars.tree-sitter-jq
-            # Add other grammars you need
+            grammars.tree-sitter-jq
           ]))
         ];
 

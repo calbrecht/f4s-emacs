@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "conflake": {
-      "inputs": {
-        "nixpkgs": [
-          "nix-treesitter",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1739025932,
-        "narHash": "sha256-8BbSpXfJfy3R7XYX43dQeYZJ7K+IDCfGZb1KgRHN0Pg=",
-        "owner": "ratson",
-        "repo": "conflake",
-        "rev": "69b5b014b79ecd457aa698e383602b07d52683c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ratson",
-        "repo": "conflake",
-        "type": "github"
-      }
-    },
     "emacs-overlay": {
       "inputs": {
         "nixpkgs": "nixpkgs",
@@ -143,27 +122,6 @@
         "owner": "oxalica",
         "repo": "nil",
         "rev": "70df371289962554cf7a23ed595b23a2ce271960",
-        "type": "github"
-      }
-    },
-    "nix-treesitter": {
-      "inputs": {
-        "conflake": "conflake",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1739028560,
-        "narHash": "sha256-7joUNhdZfSkuGL65Lbsmuf/NviUjuGtAhbfdPYuFGjk=",
-        "owner": "ratson",
-        "repo": "nix-treesitter",
-        "rev": "d9d35e37a5b2aee2f3f4d14c66e2bf0604dae4ce",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ratson",
-        "repo": "nix-treesitter",
         "type": "github"
       }
     },
@@ -346,11 +304,11 @@
         "flake-parts": "flake-parts",
         "init-leafs": "init-leafs",
         "nil": "nil",
-        "nix-treesitter": "nix-treesitter",
         "nixpkgs": "nixpkgs_4",
         "nodejs": "nodejs",
         "rust": "rust",
-        "systems": "systems_3"
+        "systems": "systems_3",
+        "tree-sitter-jq": "tree-sitter-jq"
       }
     },
     "rust": {
@@ -436,6 +394,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "x86_64-linux",
+        "type": "github"
+      }
+    },
+    "tree-sitter-jq": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1740598207,
+        "narHash": "sha256-1lKg/mQdjNMdiKvFBf4aAkGBBNKCnJ+OOqRfZJ8ly4M=",
+        "owner": "nverno",
+        "repo": "tree-sitter-jq",
+        "rev": "1e139eba1fd3a9c34a36f0f0f47ed8b73c9b4636",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nverno",
+        "repo": "tree-sitter-jq",
         "type": "github"
       }
     }
