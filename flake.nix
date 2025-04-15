@@ -12,6 +12,8 @@
     nil.url = "github:oxalica/nil/70df371289962554cf7a23ed595b23a2ce271960";
     rust.url = "github:calbrecht/f4s-rust";
     systems.url = "github:nix-systems/x86_64-linux";
+    nix-treesitter.url = "github:ratson/nix-treesitter";
+    nix-treesitter.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: let
@@ -52,6 +54,8 @@
       libcxxIncludes = "${getDev llvmPackages.libcxx}/include/c++/v1";
     in
     {
+      tsGrammars = inputs.nix-treesitter.outputs.packages.x86_64-linux;
+
       #tree-sitter = (prev.tree-sitter.overrideAttrs (old: {
       #  postPatch = (old.postPatch or "") + ''
       #    #${prev.tree}/bin/tree .
@@ -203,6 +207,8 @@
           # meh, this break doom-modeline
           #all-the-icons
           mu4e
+          nix-ts-mode
+          jq-ts-mode
           #tsc for tree-sitter
           # lives in ~/.emacs.d/git now
           #tree-sitter-langs
@@ -215,6 +221,7 @@
             grammars.tree-sitter-markdown-inline
             grammars.tree-sitter-json
             grammars.tree-sitter-json5
+            final.tsGrammars.tree-sitter-jq
             # Add other grammars you need
           ]))
         ];
