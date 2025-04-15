@@ -74,30 +74,30 @@
       };
 
       emacsExtraPathPackages = with final; [
+        #TODO crate2nix
         aider-chat-full
         coreutils
-        git
-        gnupg # sign git commits
-        nix
-        openssh
-        wl-clipboard-rs
-        nixfmt-rfc-style
-        #TODO crate2nix
+        dash
         diffutils
         fd
         fzf
+        git
+        gnupg # sign git commits
+        inputs.nixd.packages.x86_64-linux.default
         irony-server
         jsonnet-language-server
         llvmPackages.bintools
         llvmPackages.clang
+        nix
+        nixfmt-rfc-style
         nixpkgs-fmt
+        openssh
         pkg-config
+        python3Packages.jedi-language-server
         ripgrep
-        dash
         shellcheck
         stdenv.cc.bintools.bintools_bin
-        inputs.nixd.packages.x86_64-linux.default
-        #tree-sitter
+        wl-clipboard-rs
         # Actually not in use 2025-03-29.
         #perlPackages.AnyEvent
         #perlPackages.ClassAccessorFast
