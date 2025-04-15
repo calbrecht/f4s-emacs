@@ -170,7 +170,11 @@
         #}))
       ];
 
-      emacsPackages = (prev.emacsPackagesFor prev.emacs-git-nox)
+      emacs-git-nox = prev.emacs-git-nox.overrideAttrs (old: {
+        passthru = (old.passthru or {}) // { treeSitter = true; };
+      });
+
+      emacsPackages = (prev.emacsPackagesFor final.emacs-git-nox)
         .overrideScope (eself: esuper:
         let
           blockAll = [ "docker" "aio" ];
@@ -192,7 +196,7 @@
 
       emacsGitNoxWithPackages = (final.emacsWithPackagesFromUsePackage {
         config = readFile inputs.init-leafs.outPath;
-        package = prev.emacs-git-nox;
+        package = final.emacs-git-nox;
         alwaysEnsure = true;
 
         extraEmacsPackages = epkgs: with epkgs; [
@@ -203,6 +207,16 @@
           # lives in ~/.emacs.d/git now
           #tree-sitter-langs
           #tree-sitter
+          (treesit-grammars.with-grammars (grammars: [
+            grammars.tree-sitter-bash
+            grammars.tree-sitter-rust
+            grammars.tree-sitter-nix
+            grammars.tree-sitter-markdown
+            grammars.tree-sitter-markdown-inline
+            grammars.tree-sitter-json
+            grammars.tree-sitter-json5
+            # Add other grammars you need
+          ]))
         ];
 
         override = _: final.emacsPackages;
