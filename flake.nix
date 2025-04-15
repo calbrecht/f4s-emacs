@@ -9,7 +9,7 @@
     init-leafs.flake = false;
     nixpkgs.url = "github:NixOS/nixpkgs";
     nodejs.url = "github:calbrecht/f4s-nodejs";
-    nil.url = "github:oxalica/nil/70df371289962554cf7a23ed595b23a2ce271960";
+    nixd.url = "github:nix-community/nixd";
     rust.url = "github:calbrecht/f4s-rust";
     systems.url = "github:nix-systems/x86_64-linux";
     tree-sitter-jq.url = "github:nverno/tree-sitter-jq";
@@ -43,7 +43,6 @@
       inputs.emacs-overlay.overlay
       inputs.nodejs.overlay
       inputs.rust.overlay
-      inputs.nil.overlays.nil
       top.config.flake.overlays.emacs
     ] final;
     flake.overlays.emacs = final: prev:
@@ -91,13 +90,13 @@
         jsonnet-language-server
         llvmPackages.bintools
         llvmPackages.clang
-        nil
         nixpkgs-fmt
         pkg-config
         ripgrep
         dash
         shellcheck
         stdenv.cc.bintools.bintools_bin
+        inputs.nixd.packages.x86_64-linux.default
         #tree-sitter
         # Actually not in use 2025-03-29.
         #perlPackages.AnyEvent
