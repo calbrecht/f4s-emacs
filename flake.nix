@@ -75,7 +75,6 @@
 
       emacsExtraPathPackages = with final; [
         #TODO crate2nix
-        aider-chat-full
         coreutils
         dash
         diffutils
@@ -171,7 +170,11 @@
         passthru = (old.passthru or {}) // { treeSitter = true; };
       });
 
-      emacsPackages = (prev.emacsPackagesFor final.emacs-git-nox)
+      emacs-git-pgtk = prev.emacs-git-pgtk.overrideAttrs (old: {
+        passthru = (old.passthru or {}) // { treeSitter = true; };
+      });
+
+      emacsAnyPackages = emacs-pkg: (prev.emacsPackagesFor emacs-pkg)
         .overrideScope (eself: esuper:
         let
           blockAll = [ "docker" "aio" ];
@@ -191,9 +194,11 @@
         ]
       );
 
-      emacsGitNoxWithPackages = (final.emacsWithPackagesFromUsePackage {
+      emacsPackages = final.emacsAnyPackages final.emacs-git-nox;
+
+      emacsGitAnyWithPackages = emacs-pkg: (final.emacsWithPackagesFromUsePackage {
         config = readFile inputs.init-leafs.outPath;
-        package = final.emacs-git-nox;
+        package = emacs-pkg;
         alwaysEnsure = true;
 
         extraEmacsPackages = epkgs: with epkgs; [
@@ -216,20 +221,22 @@
           ]))
         ];
 
-        override = _: final.emacsPackages;
+        override = _: (final.emacsAnyPackages emacs-pkg);
       });
 
-      emacsGitLoadPath = prev.writeText "eval-when-compile-load-path.el" ''
-        ;;; -*- lexical-binding: t; -*-
-        (eval-when-compile
-          (let ((default-directory "${final.emacsGitNoxWithPackages.deps.outPath}/share/emacs/site-lisp"))
-            (normal-top-level-add-subdirs-to-load-path)))
+      emacs-git-any = emacs-pkg: let
+        emacsWithPkgs = final.emacsGitAnyWithPackages emacs-pkg;
+        emacsWithPkgsDeps = "${emacsWithPkgs.deps.outPath}";
+        emacsLoadPath = prev.writeText "eval-when-compile-load-path.el" ''
+           ;;; -*- lexical-binding: t; -*-
+           (eval-when-compile
+             (let ((default-directory "${emacsWithPkgsDeps}/share/emacs/site-lisp"))
+               (normal-top-level-add-subdirs-to-load-path)))
       '';
-
-      emacs-git-ide = with final; prev.symlinkJoin {
+      in with final; prev.symlinkJoin {
         name = "emacs";
         paths = [
-          emacsGitNoxWithPackages
+          emacsWithPkgs
           (if useLatestNodeJS then nodejs_latest else nodejs)
           rustStable.rust
         ]
@@ -240,7 +247,7 @@
         ];
         postBuild = ''
           mkdir -p $out/share/emacs/site-lisp
-          cp ${emacsGitLoadPath} $out/share/emacs/site-lisp/eval-when-compile-load-path.el
+          cp ${emacsLoadPath} $out/share/emacs/site-lisp/eval-when-compile-load-path.el
           wrapProgram $out/bin/emacs \
             --set LIBCLANG_PATH "${libclangLib}" \
             --set BINDGEN_EXTRA_CLANG_ARGS "-isystem ${libclangIncludes}" \
@@ -249,6 +256,10 @@
             --prefix PATH : $out/bin:${makeBinPath emacsNodePackages}
         '';
       };
+
+      emacs-git-tty = final.emacs-git-any final.emacs-git-nox;
+      emacs-git-way = final.emacs-git-any final.emacs-git-pgtk;
+      emacs-git-ide = final.emacs-git-tty;
     };
     perSystem = { config, system, pkgs, lib, ... }: {
       _module.args.pkgs = import inputs.nixpkgs {
@@ -259,7 +270,7 @@
         ];
       };
       packages = {
-        inherit (pkgs) emacs-git-ide;
+        inherit (pkgs) emacs-git-ide emacs-git-tty emacs-git-way;
       };
       legacyPackages = pkgs;
     };
