@@ -69,7 +69,7 @@
         eslint eslint_d
         #import-js
         jsonlint prettier standardx tslint trepan-ni
-        typescript typescript-language-server bash-language-server intelephense
+        typescript typescript-language-server bash-language-server #intelephense
         yaml-language-server;
       };
 
