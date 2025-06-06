@@ -24,11 +24,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1748092610,
-        "narHash": "sha256-4drrnBi+9h5VKlyeHuMBzF6IiNNFC2ydMrkJHzKGZxI=",
+        "lastModified": 1749232548,
+        "narHash": "sha256-iaEZa/Cjp/BHGXCd7SxYc3jw2DA96rDyKEVTWliOL9w=",
         "owner": "calbrecht",
         "repo": "f4s-fixups",
-        "rev": "52b9d9932708cc1a86ccf101afb2edb63e90397e",
+        "rev": "a12478a2734e742b1a93c552f56c70f3f8d0f75d",
         "type": "github"
       },
       "original": {
@@ -198,11 +198,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1747958103,
-        "narHash": "sha256-qmmFCrfBwSHoWw7cVK4Aj+fns+c54EBP8cGqp/yK410=",
+        "lastModified": 1749174413,
+        "narHash": "sha256-urN9UMK5cd1dzhR+Lx0xHeTgBp2MatA5+6g9JaxjuQs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "fe51d34885f7b5e3e7b59572796e1bcb427eccb1",
+        "rev": "6ad174a6dc07c7742fc64005265addf87ad08615",
         "type": "github"
       },
       "original": {
