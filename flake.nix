@@ -87,7 +87,7 @@
         jsonnet-language-server
         llvmPackages.bintools
         llvmPackages.clang
-        nix
+        nixVersions.latest
         nixfmt-rfc-style
         nixpkgs-fmt
         openssh
