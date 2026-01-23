@@ -53,12 +53,12 @@
       libcxxIncludes = "${getDev llvmPackages.libcxx}/include/c++/v1";
     in
     {
-
-      tree-sitter = prev.tree-sitter.override {
-        extraGrammars = {
-          tree-sitter-jq.src = inputs.tree-sitter-jq;
-        };
-      };
+      #https://github.com/NixOS/nixpkgs/commit/9bfc2e203bf0b72c5c52f70c1261c36b86d73eb1
+      #tree-sitter = prev.tree-sitter.override {
+      #  extraGrammars = {
+      #    tree-sitter-jq.src = inputs.tree-sitter-jq;
+      #  };
+      #};
 
       irony-server = (prev.irony-server.override {
         irony = final.emacsPackages.melpaPackages.irony;
