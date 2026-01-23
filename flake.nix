@@ -216,7 +216,7 @@
             grammars.tree-sitter-markdown-inline
             grammars.tree-sitter-json
             grammars.tree-sitter-json5
-            grammars.tree-sitter-jq
+            #grammars.tree-sitter-jq
             grammars.tree-sitter-python
           ]))
         ];
