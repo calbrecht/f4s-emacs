@@ -274,11 +274,11 @@
         "pkgs-src": "pkgs-src"
       },
       "locked": {
-        "lastModified": 1772891986,
-        "narHash": "sha256-ZPQNuGEnHFw9pm4vzzp8qgFjihQqIyYKnKFqwBuKS2c=",
+        "lastModified": 1772893673,
+        "narHash": "sha256-iGjr6/uE0eevsrDUMiJIYz6bdBhXQCNc3ORLekfFMk8=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "45de418572c99ddac651b2741c2a21f3ea10e5fb",
+        "rev": "6b0875801298aa9921c0908f9dbc9ad299fa12f2",
         "type": "github"
       },
       "original": {
@@ -291,11 +291,11 @@
       "flake": false,
       "locked": {
         "dir": "pkgs",
-        "lastModified": 1728684207,
-        "narHash": "sha256-5tsbEmupT1VeNEWL8YNe2XYX+c5LVHMTWBPC0GTgDt0=",
+        "lastModified": 1772893485,
+        "narHash": "sha256-L3FFSI7WMn5nWm4oNzJu0cnm7CxF6zAsjGouPqa6S/o=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "16530de573eed671af202c5f80e9f92ea8f897b6",
+        "rev": "b7c693bc79819a60982c4b8490d0063f2cc1e639",
         "type": "github"
       },
       "original": {
