@@ -275,7 +275,8 @@
                   --set LIBCLANG_PATH "${libclangLib}" \
                   --set BINDGEN_EXTRA_CLANG_ARGS "-isystem ${libclangIncludes}" \
                   --set RUST_SRC_PATH "${rustStable.rust-src}/lib/rustlib/src/rust/library" \
-                  --prefix PERL5LIB : "$out/lib/perl5/site_perl/5.34.0:$out/lib/perl5/site_perl/5.34.0/x86_64-linux-thread-multi" #\
+                  --prefix PERL5LIB : "$out/lib/perl5/site_perl/5.34.0:$out/lib/perl5/site_perl/5.34.0/x86_64-linux-thread-multi" \
+                  --prefix PATH : $out/bin
                   #--prefix PATH : $out/bin:''${makeBinPath emacsNodePackages}
               '';
             };
