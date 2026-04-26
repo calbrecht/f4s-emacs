@@ -96,7 +96,7 @@
           "flake-parts"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-25_11"
         ],
         "treefmt-nix": [
           "treefmt-nix"
@@ -127,6 +127,22 @@
       },
       "original": {
         "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-25_11": {
+      "locked": {
+        "lastModified": 1776734388,
+        "narHash": "sha256-vl3dkhlE5gzsItuHoEMVe+DlonsK+0836LIRDnm6MXQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "10e7ad5bbcb421fe07e3a4ad53a634b0cd57ffac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -238,6 +254,7 @@
         "init-leafs": "init-leafs",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-25_11": "nixpkgs-25_11",
         "nodejs": "nodejs",
         "rust": "rust",
         "systems": "systems",

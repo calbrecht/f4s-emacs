@@ -11,9 +11,10 @@
     init-leafs.flake = false;
     nixd.url = "github:nix-community/nixd";
     nixd.inputs.flake-parts.follows = "flake-parts";
-    nixd.inputs.nixpkgs.follows = "nixpkgs";
+    nixd.inputs.nixpkgs.follows = "nixpkgs-25_11";
     nixd.inputs.treefmt-nix.follows = "treefmt-nix";
     nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs-25_11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nodejs.url = "github:calbrecht/f4s-nodejs";
     nodejs.inputs.nixpkgs.follows = "nixpkgs";
     rust.url = "github:calbrecht/f4s-rust";
