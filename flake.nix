@@ -9,12 +9,10 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     init-leafs.url = "path:/home/alab/.emacs.i/init-leafs.el";
     init-leafs.flake = false;
-    nixd.url = "github:nix-community/nixd";
-    nixd.inputs.flake-parts.follows = "flake-parts";
-    nixd.inputs.nixpkgs.follows = "nixpkgs-25_11";
-    nixd.inputs.treefmt-nix.follows = "treefmt-nix";
+    nixd.url = "github:nix-community/nixd/5ea1e1b14234934be4a0001255bcc38de25b52f5";
+    #nixd.inputs.flake-parts.follows = "flake-parts";
+    #nixd.inputs.treefmt-nix.follows = "treefmt-nix";
     nixpkgs.url = "github:NixOS/nixpkgs";
-    nixpkgs-25_11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nodejs.url = "github:calbrecht/f4s-nodejs";
     nodejs.inputs.nixpkgs.follows = "nixpkgs";
     rust.url = "github:calbrecht/f4s-rust";
