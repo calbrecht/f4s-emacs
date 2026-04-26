@@ -103,7 +103,7 @@
             llvmPackages.bintools
             llvmPackages.clang
             nixVersions.latest
-            nixfmt-rfc-style
+            nixfmt-tree
             nixpkgs-fmt
             openssh
             pkg-config
