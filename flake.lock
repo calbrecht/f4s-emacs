@@ -233,22 +233,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1770107345,
-        "narHash": "sha256-tbS0Ebx2PiA1FRW8mt8oejR0qMXmziJmPaU1d4kYY9g=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "4533d9293756b63904b7238acb84ac8fe4c8c2c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nodejs": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -258,11 +242,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1777212597,
-        "narHash": "sha256-e31U29GiQacaVXeo0gNb//HHJr8jpyyqhdP2jK3MIeA=",
+        "lastModified": 1777231237,
+        "narHash": "sha256-qgon1szjHyKPkhPnY2END4Dqz1XhkMLOJ0V1qS+nXxI=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "01f11fdbd0ad730b1ae00870e23b01cef3032e79",
+        "rev": "d46e2224767b791cf544f3fc57e92f027b90d296",
         "type": "github"
       },
       "original": {
@@ -344,7 +328,10 @@
     },
     "treefmt-nix_2": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": [
+          "nodejs",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1775636079,
