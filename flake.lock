@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779087219,
-        "narHash": "sha256-/qMpl5w98USu7zw2mQye2DzQkseEK27QxTXt7eW4XGA=",
+        "lastModified": 1779088667,
+        "narHash": "sha256-oZmnUWXsJtlzI1ERNMXLqVF0yA0qgftYZF672rxclYo=",
         "owner": "calbrecht",
         "repo": "f4s-fixups",
-        "rev": "e4ed6a6927b3844b0d4d365ce9f755bcb1131ac1",
+        "rev": "da89951d2a14a853c0039680d70b4f5a9ae8b626",
         "type": "github"
       },
       "original": {
