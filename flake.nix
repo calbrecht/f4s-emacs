@@ -106,7 +106,7 @@
             nixpkgs-fmt
             openssh
             pkg-config
-            python3Packages.jedi-language-server
+            # 2026-05-23 broken python3Packages.jedi-language-server
             ripgrep
             shellcheck
             stdenv.cc.bintools.bintools_bin
