@@ -242,11 +242,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1782752333,
-        "narHash": "sha256-h5xMBOrWIAkKcJBwLza1jo3PJsnGdNskLort/GW8IwQ=",
+        "lastModified": 1782752423,
+        "narHash": "sha256-fVfa6+j6GvQdf81eKp3K8AIpKDKBBhBYvi81v9tlnQk=",
         "owner": "calbrecht",
         "repo": "f4s-nodejs",
-        "rev": "dd299e1fb542ed382b26934a04eda72489ee89c2",
+        "rev": "dd3b87c4a30e71a283c7d915c2fe8667a1d24b8a",
         "type": "github"
       },
       "original": {
