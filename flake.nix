@@ -65,7 +65,7 @@
           libclangIncludes = "${libclangLib}/clang/${getVersion llvmPackages.clang}/include";
         in
         {
-          rustStable = prev.rust-bin.stable.latest.default;
+          rustStable = prev.rust-bin.stable.latest.complete;
           rustStableSrc = prev.rust-bin.stable.latest.rust-src;
 
           irony-server = (
