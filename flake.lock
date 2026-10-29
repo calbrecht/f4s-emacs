@@ -187,21 +187,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-mozilla": {
-      "locked": {
-        "lastModified": 1783941145,
-        "narHash": "sha256-WXGFkdoYqOX9mjJaSfN5+rAH7eFe/1F6LmYb/Rs360g=",
-        "owner": "mozilla",
-        "repo": "nixpkgs-mozilla",
-        "rev": "16ab32eeb8390de633eb336eb4910efbbe0091e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mozilla",
-        "repo": "nixpkgs-mozilla",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1793183032,
@@ -264,29 +249,28 @@
         "nixd": "nixd",
         "nixpkgs": "nixpkgs_2",
         "nodejs": "nodejs",
-        "rust": "rust",
+        "rust-overlay": "rust-overlay",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix_3"
       }
     },
-    "rust": {
+    "rust-overlay": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "nixpkgs-mozilla": "nixpkgs-mozilla"
+        ]
       },
       "locked": {
-        "lastModified": 1792938624,
-        "narHash": "sha256-7mFMEyL2wu8RQXuMdnjZ3qyr7szMtrXwSAtKMlYp+QI=",
-        "owner": "calbrecht",
-        "repo": "f4s-rust",
-        "rev": "e27dd5d26f496e8cd65be427f995dee1b6747860",
+        "lastModified": 1793261817,
+        "narHash": "sha256-fAvtOccUXHVAH5wXK+ABYUUC47W2qTb9T9EefLcS9ME=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "afcefd09c71e63663a46e4ce5e09968584f2c709",
         "type": "github"
       },
       "original": {
-        "owner": "calbrecht",
-        "repo": "f4s-rust",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
         "type": "github"
       }
     },
