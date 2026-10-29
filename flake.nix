@@ -15,8 +15,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
     nodejs.url = "github:calbrecht/f4s-nodejs";
     nodejs.inputs.nixpkgs.follows = "nixpkgs";
-    rust.url = "github:calbrecht/f4s-rust";
-    rust.inputs.nixpkgs.follows = "nixpkgs";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
     systems.url = "github:nix-systems/x86_64-linux";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -53,7 +53,8 @@
         foldl' (flip extends) (_: prev) [
           inputs.emacs-overlay.overlay
           #inputs.nodejs.overlay
-          inputs.rust.overlay
+          #inputs.rust.overlay
+          inputs.rust-overlay.overlays.default
           top.config.flake.overlays.emacs
         ] final;
       flake.overlays.emacs =
@@ -64,6 +65,9 @@
           libclangIncludes = "${libclangLib}/clang/${getVersion llvmPackages.clang}/include";
         in
         {
+          rustStable = prev.rust-bin.stable.latest.default;
+          rustStableSrc = prev.rust-bin.stable.latest.rust-src;
+
           irony-server = (
             prev.irony-server.override {
               irony = final.emacsPackages.melpaPackages.irony;
@@ -260,12 +264,11 @@
               paths = [
                 emacsWithPkgs
                 (if useLatestNodeJS then nodejs_latest else nodejs)
-                rustStable.rust
+                rustStable
               ]
               ++ emacsExtraPathPackages;
               buildInputs = [
                 prev.makeWrapper
-                rustStable.rust-src
               ];
               postBuild = ''
                 mkdir -p $out/share/emacs/site-lisp
@@ -273,7 +276,7 @@
                 wrapProgram $out/bin/emacs \
                   --set LIBCLANG_PATH "${libclangLib}" \
                   --set BINDGEN_EXTRA_CLANG_ARGS "-isystem ${libclangIncludes}" \
-                  --set RUST_SRC_PATH "${rustStable.rust-src}/lib/rustlib/src/rust/library" \
+                  --set RUST_SRC_PATH "${rustStableSrc}/lib/rustlib/src/rust/library" \
                   --prefix PERL5LIB : "$out/lib/perl5/site_perl/5.34.0:$out/lib/perl5/site_perl/5.34.0/x86_64-linux-thread-multi" \
                   --prefix PATH : $out/bin
                   #--prefix PATH : $out/bin:''${makeBinPath emacsNodePackages}
