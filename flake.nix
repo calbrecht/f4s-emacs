@@ -128,14 +128,14 @@
             in
             foldl recursiveUpdate { } [
               emacsPackages
-              (optionalOverrideAttrs "flycheck" (old: {
-                postPatch = (old.postPatch or "") + ''
-                  substituteInPlace flycheck.el --replace-fail \
-                    "flycheck-shellcheck-supported-shells '(bash ksh88 sh)" \
-                    "flycheck-shellcheck-supported-shells '(dash bash ksh88 sh)"
-                  sed -i "/flycheck-define-checker sh-posix-dash/,/:predicate/{ s/(eq sh-shell 'sh)/(or (eq sh-shell 'sh) (eq sh-shell 'dash))/ }" flycheck.el
-                '';
-              }))
+              #(optionalOverrideAttrs "flycheck" (old: {
+              #  postPatch = (old.postPatch or "") + ''
+              #    substituteInPlace flycheck.el --replace-fail \
+              #      "flycheck-shellcheck-supported-shells '(bash ksh88 sh zsh)" \
+              #      "flycheck-shellcheck-supported-shells '(dash bash ksh88 sh zsh)"
+              #    sed -i "/flycheck-define-checker sh-posix-dash/,/:predicate/{ s/(eq sh-shell 'sh)/(or (eq sh-shell 'sh) (eq sh-shell 'dash))/ }" flycheck.el
+              #  '';
+              #}))
               (optionalOverrideAttrs "realgud" (old: {
                 postPatch = (old.postPatch or "") + ''
                   substituteInPlace realgud-recursive-autoloads.el --replace-fail \
